@@ -1,6 +1,7 @@
 package com.example.app;
 
-import com.example.app.model.MyFactoryBean;
+import com.example.app.beaninject.BeanModel;
+import com.example.app.beaninject.MyFactoryBean;
 import com.example.app.service.FooService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,6 +36,14 @@ public class MyConfig {
     @Bean(name = "fooService2")
     public FooService fooService2(){
         return new FooService();
+    }
+
+    @Bean
+    public BeanModel beanModel(){
+        BeanModel model = new BeanModel();
+        model.setAge("22");
+        model.setName("neo");
+        return model;
     }
 }
 

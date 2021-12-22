@@ -1,8 +1,9 @@
-package com.example.app.model;
+package com.example.app.beaninject;
 
 import org.springframework.beans.factory.FactoryBean;
 
 /**
+ * A bean
  * @Author: neo.zr
  * @Created on: 2021/7/5
  */
@@ -26,7 +27,7 @@ public class MyFactoryBean implements FactoryBean {
 
     @Override
     public Class<?> getObjectType() {
-        return String.class;
+        return Object.class;
     }
 
 }

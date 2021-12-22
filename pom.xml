@@ -178,6 +178,12 @@
 			<artifactId>grpc-stub</artifactId>
 			<version>1.8.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.lazada.lazmall</groupId>
+			<artifactId>lazmall-customized-service-api</artifactId>
+			<version>1.0.5</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

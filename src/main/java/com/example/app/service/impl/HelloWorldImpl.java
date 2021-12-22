@@ -11,23 +11,14 @@ import org.springframework.stereotype.Service;
  * @Date: Created on 2020/10/9
  */
 @Service
-public class HelloWorldImpl implements IHelloWorld, InitializingBean {
+public class HelloWorldImpl implements IHelloWorld {
 
-    @Value("${field}")
-    public static String field;
+    @Value("${greetings}")
+    public static String greetings;
 
     @OutPower
     @Override
     public String sayHello() {
-        return "hello world";
-    }
-
-    public String getField(){
-        return this.field;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("[HelloWorldImpl],  " + getField());
+        return greetings;
     }
 }

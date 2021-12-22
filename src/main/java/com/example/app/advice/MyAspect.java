@@ -19,10 +19,10 @@ import java.lang.annotation.Annotation;
 public class MyAspect {
 
     // 将函数标记为切入点
-    @Pointcut("execution(* com.example.demo.service.IHelloWorld.sayHello(..))")
+    @Pointcut("execution(* com.example.app.service.IHelloWorld.sayHello(..))")
     public void sayHello(){ }
 
-    @Pointcut("@annotation(com.example.demo.annotations.Turtle)")
+    @Pointcut("@annotation(com.example.app.annotations.Turtle)")
     public void turtlePoint(){}
 
     @Before("sayHello()")

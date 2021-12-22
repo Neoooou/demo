@@ -15,29 +15,26 @@ import java.util.List;
 
 public class MyComparator {
 
-    @ToString
-    @Data
-    @AllArgsConstructor
-    static class A{
-        int i;
-        String s;
-
-    }
-
     public static void main(String[] args) {
-        Comparator<A> comp = Comparator.comparing(A::getI).reversed();
-        Comparator<A> comp1 = (a1, a2) ->{
-            return a2.getI() - a2.getI();
-        };
-        List<A> l = Lists.newArrayList(new A(1, "1"), new A(2, "2"), new A(3, "3"), new A(4, "4"));
+        Comparator<Entity> comp = Comparator.comparing(Entity::getId).reversed();
+        Comparator<Entity> comp1 = (e0, e1) ->e0.getId() - e1.getId();
+        List<Entity> l = Lists.newArrayList(new Entity(1, "jack", 22.2D), new Entity(2, "tommy", 33.3D), new Entity(3, "mary", 44.4D));
         l.sort(comp);
         System.out.println(l);
         l.sort(comp1);
         System.out.println(l);
+
+        testTry();
+    }
+
+    /**
+     * finally 代码块无论如何都会执行
+     */
+    public static void testTry(){
         try{
             return;
         }finally {
-            System.out.println(123);
+            System.out.println("finally");
         }
     }
 }

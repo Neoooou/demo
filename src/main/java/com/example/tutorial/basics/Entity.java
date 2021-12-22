@@ -13,5 +13,9 @@ import lombok.NonNull;
 @Data
 public class Entity {
     @NonNull
-    String id;
+    Integer id;
+
+    String name;
+
+    Double salary;
 }
