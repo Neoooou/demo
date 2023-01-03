@@ -1,6 +1,6 @@
 package com.example.app.service;
 
-import com.example.app.SpringContextUtils;
+import com.example.app.util.SpringContextUtils;
 
 /**
  * @Author: neo.zr

@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.beaninject;
 
 import com.example.app.annotations.EnableCustomBean;
 import org.springframework.beans.factory.config.BeanDefinition;

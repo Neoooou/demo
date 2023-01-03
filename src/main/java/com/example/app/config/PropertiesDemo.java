@@ -1,17 +1,18 @@
-package com.example.app;
+package com.example.app.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: neo.zr
- * @Created on: 2021/8/21
+ * @author neo.zr
+ * @since 2023/1/3
  */
+
 @Data
 @Component
 @ConfigurationProperties(prefix = "my")
-public class MyProperties {
+public class PropertiesDemo {
     String name;
     int age;
     String email;

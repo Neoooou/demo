@@ -1,6 +1,7 @@
 package com.example.tutorial.basics;
 
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -10,7 +11,12 @@ import java.io.InputStream;
 
 public class StreamDemo {
     public static void main(String[] args) {
-        InputStream inputStream = new StreamDemo().getClass().getClassLoader().getResourceAsStream("");
 
+
+        try(InputStream inputStream = new StreamDemo().getClass().getClassLoader().getResourceAsStream("")){
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 }

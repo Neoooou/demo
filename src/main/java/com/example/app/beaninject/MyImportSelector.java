@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.beaninject;
 
 import com.example.app.model.Employee;
 import org.springframework.context.annotation.ImportSelector;

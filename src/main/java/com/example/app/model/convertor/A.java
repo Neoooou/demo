@@ -1,4 +1,4 @@
-package com.example.app.convertor;
+package com.example.app.model.convertor;
 
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

@@ -1,12 +1,12 @@
 package com.example.app;
 
+import com.example.app.beaninject.MyImportSelector;
+import com.example.app.config.PropertiesDemo;
 import com.example.deeplearning.Prophet;
 import com.example.app.model.Employee;
 import com.example.app.beaninject.MyFactoryBean;
 import com.example.app.model.User;
-import com.sun.tools.javac.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Import({Prophet.class, User.class, MyImportSelector.class})
 class TestCase {
 
-	final MyProperties myProperties;
+	final PropertiesDemo myProperties;
 
 	final ApplicationContext applicationContext;
 

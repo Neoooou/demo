@@ -1,13 +1,10 @@
 package com.example.app.advice;
 
 import com.example.app.annotations.OutPower;
-import com.example.app.annotations.Turtle;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.Annotation;
 
 /**
  * @Author: Zhang Ran
@@ -16,14 +13,11 @@ import java.lang.annotation.Annotation;
 
 @Aspect
 @Component
-public class MyAspect {
+public class AspectAdvice {
 
     // 将函数标记为切入点
     @Pointcut("execution(* com.example.app.service.IHelloWorld.sayHello(..))")
     public void sayHello(){ }
-
-    @Pointcut("@annotation(com.example.app.annotations.Turtle)")
-    public void turtlePoint(){}
 
     @Before("sayHello()")
     public void doBefore(){
@@ -49,18 +43,6 @@ public class MyAspect {
     @Around("say()")
     public Object sayAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("say around");
-        return proceedingJoinPoint.proceed();
-    }
-
-    @Around("@annotation(turtle)")
-    public Object doAsTurtleDO(ProceedingJoinPoint proceedingJoinPoint, Turtle turtle) throws Throwable{
-        System.out.println("turtle crawls..");
-        System.out.println(turtle);
-        MethodSignature method = (MethodSignature) proceedingJoinPoint.getSignature();
-        Annotation[] annotations = method.getMethod().getAnnotations();
-        for(Annotation annotation: annotations){
-            System.out.println(annotation.annotationType().getName());
-        }
         return proceedingJoinPoint.proceed();
     }
 

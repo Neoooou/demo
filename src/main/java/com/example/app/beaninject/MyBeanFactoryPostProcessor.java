@@ -7,6 +7,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 /**
+ * operare on the metadata level
  * @Author: neo.zr
  * @Created on: 2021/12/14
  */

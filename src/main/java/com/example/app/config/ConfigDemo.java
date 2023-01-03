@@ -1,21 +1,22 @@
-package com.example.app;
+package com.example.app.config;
 
 import com.example.app.beaninject.BeanModel;
 import com.example.app.beaninject.MyFactoryBean;
 import com.example.app.service.FooService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
- * @Author: Zhang Ran
- * @Date: Created on 2020/10/9
+ * @author neo.zr
+ * @since 2023/1/3
  */
 
 @Configuration
 @EnableAspectJAutoProxy
-public class MyConfig {
-
+public class ConfigDemo {
     @Bean
     public MyFactoryBean myFactoryBean(){
         return new MyFactoryBean();
@@ -46,5 +47,3 @@ public class MyConfig {
         return model;
     }
 }
-
-
