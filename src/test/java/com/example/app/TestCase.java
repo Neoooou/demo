@@ -4,7 +4,7 @@ import com.example.app.beaninject.MyImportSelector;
 import com.example.app.config.PropertiesDemo;
 import com.example.deeplearning.Prophet;
 import com.example.app.model.Employee;
-import com.example.app.beaninject.MyFactoryBean;
+import com.example.app.beaninject.XFactoryBean;
 import com.example.app.model.User;
 import lombok.RequiredArgsConstructor;
 import org.junit.Assert;
@@ -29,7 +29,7 @@ class TestCase {
 	@Test
 	public void test1() {
 		Assert.assertNotNull(applicationContext.getBean(User.class));
-		Assert.assertNotNull(applicationContext.getBean(MyFactoryBean.class));
+		Assert.assertNotNull(applicationContext.getBean(XFactoryBean.class));
 		Assert.assertTrue(applicationContext.containsBean(Employee.class.getName()));
 		Assert.assertTrue(applicationContext.containsBean(Prophet.class.getName()));
 		Assert.assertTrue(applicationContext.containsBean("fooService1"));

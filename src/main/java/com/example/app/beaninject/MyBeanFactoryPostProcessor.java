@@ -7,7 +7,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * operare on the metadata level
+ * operate on the metadata level
  * @Author: neo.zr
  * @Created on: 2021/12/14
  */
@@ -15,13 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
-    MyBeanFactoryPostProcessor(){
-        System.out.println("call MyBeanFactoryPostProcessor non-arg constructor..");
-    }
-
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        System.out.println("call MyBeanFactoryPostProcessor#postProcessBeanFactory ..");
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition("beanModel");
         beanDefinition.getPropertyValues().addPropertyValue("age", "21");
     }

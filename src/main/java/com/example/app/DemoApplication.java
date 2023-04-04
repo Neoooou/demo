@@ -1,10 +1,11 @@
 package com.example.app;
 
 import com.alibaba.boot.acl.config.AclAutoConfiguration;
+import com.alibaba.fastjson.JSON;
 import com.example.app.annotations.EnableCustomBean;
-import com.example.app.beaninject.BeanModel;
+import com.example.app.beaninject.XModel;
+import com.example.app.service.FooService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.taobao.pandora.boot.PandoraBootstrap;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,6 +15,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Map;
 
 
 @SpringBootApplication(scanBasePackages = {"com.example.app"})
@@ -32,7 +35,7 @@ public class DemoApplication {
 //        PandoraBootstrap.run(args);
         ConfigurableApplicationContext context =
                 new SpringApplicationBuilder(DemoApplication.class).run(args);
-        context.getBean(BeanModel.class);
+        context.getBean(FooService.class).say();
 //        PandoraBootstrap.markStartupAndWait();
     }
 

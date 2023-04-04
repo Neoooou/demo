@@ -16,9 +16,10 @@ import org.springframework.beans.factory.*;
  */
 
 @Data
-public class BeanModel implements InitializingBean, DisposableBean, BeanNameAware, BeanFactoryAware {
+public class XModel implements InitializingBean, DisposableBean, BeanNameAware, BeanFactoryAware {
     String name;
     String age;
+
     private String beanName;//实现了BeanNameAware接口，Spring可以将BeanName注入该属性中
     private BeanFactory beanFactory;
 

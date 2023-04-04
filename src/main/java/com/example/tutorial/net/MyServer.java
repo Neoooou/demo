@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -28,9 +30,9 @@ public class MyServer {
             try{
                 br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String line = br.readLine();
-                pw = new PrintWriter(socket.getOutputStream(), true);
                 System.out.println(line);
-                pw.println(new Date().toString());
+                pw = new PrintWriter(socket.getOutputStream(), true);
+                pw.println(new Date().toString() + " server received " + line);
             } catch (IOException e) {
                 e.printStackTrace();
             }finally {

@@ -19,32 +19,30 @@ public class AspectAdvice {
     @Pointcut("execution(* com.example.app.service.IHelloWorld.sayHello(..))")
     public void sayHello(){ }
 
-    @Before("sayHello()")
-    public void doBefore(){
-        System.out.println("do before method execution");
-    }
+//    @Before("sayHello()")
+//    public void doBefore(){
+//        System.out.println("do before method execution");
+//    }
 
-    @After("sayHello()")
-    public void doAfter(){
-        System.out.println("do after method execution");
-    }
+//    @After("sayHello()")
+//    public void doAfter(){
+//        System.out.println("do after method execution");
+//    }
 
-    @AfterThrowing("sayHello()")
+//    @AfterThrowing("sayHello()")
+//    public void doAfterThrowing(){
+//        System.out.println("do after method throw an error");
+//    }
 
-    public void doAfterThrowing(){
-        System.out.println("do after method throw an error");
-    }
-
-    @Pointcut("execution(* say(..))")
-    public void say(){
-
-    }
-
-    @Around("say()")
-    public Object sayAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        System.out.println("say around");
-        return proceedingJoinPoint.proceed();
-    }
+//    @Pointcut("execution(* say(..))")
+//    public void say(){
+//
+//    }
+//    @Around("say()")
+//    public Object sayAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+//        System.out.println("say around");
+//        return proceedingJoinPoint.proceed();
+//    }
 
     @Around("@annotation(outPower)")
     public Object doOutPower(ProceedingJoinPoint proceedingJoinPoint, OutPower outPower) throws Throwable{

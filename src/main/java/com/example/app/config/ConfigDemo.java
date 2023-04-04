@@ -1,7 +1,8 @@
 package com.example.app.config;
 
-import com.example.app.beaninject.BeanModel;
-import com.example.app.beaninject.MyFactoryBean;
+import com.alibaba.cobar.parser.ast.expression.primary.function.string.X;
+import com.example.app.beaninject.XModel;
+import com.example.app.beaninject.XFactoryBean;
 import com.example.app.service.FooService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -17,33 +18,20 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 public class ConfigDemo {
-    @Bean
-    public MyFactoryBean myFactoryBean(){
-        return new MyFactoryBean();
-    }
-
-    @ConditionalOnMissingBean(name="fooService2")
-    @Bean(name = "fooService1")
-    public FooService fooService(){
-        return new FooService();
-    }
 
     @Bean(name = "fooService")
     public FooService fooService1(){
         return new FooService();
     }
 
-    @ConditionalOnBean(name = "fooService")
-    @Bean(name = "fooService2")
-    public FooService fooService2(){
-        return new FooService();
-    }
 
     @Bean
-    public BeanModel beanModel(){
-        BeanModel model = new BeanModel();
-        model.setAge("22");
+    public XModel beanModel() throws Exception {
+        XFactoryBean xFactoryBean = new XFactoryBean();
+        XModel model = new XModel();
+        model.setAge("21");
         model.setName("neo");
-        return model;
+        xFactoryBean.setTarget(model);
+        return xFactoryBean.getObject();
     }
 }

@@ -8,26 +8,26 @@ import org.springframework.beans.factory.FactoryBean;
  * @Created on: 2021/7/5
  */
 
-public class MyFactoryBean implements FactoryBean {
+public class XFactoryBean implements FactoryBean<XModel> {
 
-    private MyFactoryBean target;
+    private XModel target;
 
-    public void setTarget(MyFactoryBean target){
+    public void setTarget(XModel target){
         this.target = target;
     }
 
-    public MyFactoryBean(){
+    public XFactoryBean(){
         System.out.println("init by constructor");
     }
 
     @Override
-    public Object getObject() throws Exception {
+    public XModel getObject() throws Exception {
         return target;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return Object.class;
+        return XModel.class;
     }
 
 }

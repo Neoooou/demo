@@ -17,12 +17,13 @@ public class LatchDemo {
         final CountDownLatch latch = new CountDownLatch(workerNum);
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(30));
-        AtomicLong s = new AtomicLong();
+        AtomicLong atomicLong = new AtomicLong();
+
         for(int i=0;i < workerNum; i++){
             executor.execute(()->{
                 try{
-                    for(int j = 0; j < 1000; j+=2){
-                        s.addAndGet(j);
+                    for(int j = 0; j < 1000; j+=1){
+                        atomicLong.addAndGet(j);
                     }
                 }finally {
                     latch.countDown();
@@ -36,7 +37,7 @@ public class LatchDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.print(s.get());
+        System.out.print(atomicLong.get());
         executor.shutdown();
     }
 }
