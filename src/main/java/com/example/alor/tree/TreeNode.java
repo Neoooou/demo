@@ -7,9 +7,9 @@ package com.example.alor.tree;
 
 public class TreeNode {
 
-    public int key;
+    public Integer key;
 
-    public int value;
+    public Integer value;
 
     public TreeNode left,right;
 
@@ -40,14 +40,14 @@ public class TreeNode {
         TreeNode n6 = new TreeNode(6);
         TreeNode n7 = new TreeNode(7);
 
-        root.left = n1;
-        root.right = n2;
+        root.left = n2;
+        root.right = n6;
 
-        n1.left = n3;
-        n1.right = n7;
+        n2.left = n1;
+        n2.right = n3;
 
-        n2.right = n5;
-        n2.left = n6;
+        n6.right = n7;
+        n6.left = n5;
 
         return root;
     }

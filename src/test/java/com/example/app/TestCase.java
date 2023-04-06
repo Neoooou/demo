@@ -2,7 +2,7 @@ package com.example.app;
 
 import com.example.app.beaninject.MyImportSelector;
 import com.example.app.config.PropertiesDemo;
-import com.example.deeplearning.Prophet;
+import com.example.ml.Prophet;
 import com.example.app.model.Employee;
 import com.example.app.beaninject.XFactoryBean;
 import com.example.app.model.User;
