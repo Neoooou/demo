@@ -18,4 +18,18 @@ public class Entity {
     String name;
 
     Double salary;
+
+    static class Ele{
+        int row, col, val;
+        Ele(int row, int col, int val){
+            this.row = row;
+            this.col = col;
+            this.val = val;
+        }
+    }
+
+    public static void main(String[] args) {
+        Ele e = new Ele(1, 1, 1);
+        System.out.println(e.equals(null));
+    }
 }
