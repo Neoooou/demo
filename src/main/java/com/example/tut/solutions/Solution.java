@@ -106,6 +106,8 @@ public class Solution {
         System.out.println(i-- > 0 );
         i = 1;
         System.out.println(--i > 0 );
+
+        System.out.println(Math.exp(14) / (Math.exp(14)+Math.exp(12)));
     }
 
     public int[] topKFrequent(int[] nums, int k) {
@@ -270,5 +272,53 @@ public class Solution {
         return q;
     }
 
+    /**
+     * 424. Longest Repeating Character Replacement
+     */
+    public int characterReplacement(String s, int k) {
+        int[] freq = new int[26];
+        int left = 0, right = 0, max = 0, mostFreq=0;
+        while(right < s.length()){
+            char c = s.charAt(right);
+            freq[c-'A']++;
+            mostFreq = Math.max(mostFreq, freq[c-'A']);
+
+            if((right-left-mostFreq) > k){
+                freq[s.charAt(left)-'A']--;
+                left++;
+            }
+            max = Math.max(max, right-left+1);
+            right++;
+        }
+        return max;
+    }
+
+
+    public int solution(int[] A) {
+        // Implement your solution here
+        Arrays.sort(A);
+        int min = 1;
+        for(int i = 1; i < A.length; ++i){
+            if(A[i-1]+1 == A[i] || A[i] == A[i-1]){
+                continue;
+            }
+            return Math.min(min, A[i-1]+1);
+        }
+        return Math.max(min, A[A.length-1]+1);
+    }
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Boolean[] flags = new Boolean[s.length()+1];
+        Set<String> wordSet = new HashSet<>(wordDict);
+        flags[0] = true;
+        for(int i = 0; i < s.length(); ++i){
+            for(int j = 0; j <= i; ++j){
+                if(flags[j] && wordSet.contains(s.substring(j, i+1))){
+                    flags[i+1] = true;
+                }
+            }
+        }
+        return flags[s.length()];
+    }
 
 }

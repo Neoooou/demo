@@ -1,7 +1,5 @@
 package com.example.alor.tree;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -11,10 +9,16 @@ import java.util.Stack;
 
 public class TreeSolutions {
 
+    /**
+     * 是否是镜像树
+     */
     public void isSym(TreeNode root) {
         System.out.println("is sysmmetrical: " + isSymSubTree(root.left,root.right));
     }
 
+    /**
+     * 是否是镜像树
+     */
     private boolean isSymSubTree(TreeNode left, TreeNode right) {
         if(left == null && right == null) return true;
         if(left == null || right == null) return false;
@@ -24,6 +28,9 @@ public class TreeSolutions {
         return f && isSymSubTree(left.left, right.right) && isSymSubTree(left.right, right.left);
     }
 
+    /**
+     * 最近相同祖先
+     */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(root.value > p.value && root.value > q.value){
             return lowestCommonAncestor(root.left, p, q);

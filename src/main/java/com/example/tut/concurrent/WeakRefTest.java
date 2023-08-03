@@ -1,4 +1,4 @@
-package com.example.tut.threadrelated;
+package com.example.tut.concurrent;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;

@@ -1,4 +1,4 @@
-package com.example.tut.threadrelated;
+package com.example.tut.concurrent;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;
@@ -12,11 +12,13 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 
 public class LatchDemo {
+
+    static ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(30));
+
     public static void main(String[] args) {
         final int workerNum = 2;
         final CountDownLatch latch = new CountDownLatch(workerNum);
 
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(30));
         AtomicLong atomicLong = new AtomicLong();
 
         for(int i=0;i < workerNum; i++){
@@ -28,8 +30,6 @@ public class LatchDemo {
                 }finally {
                     latch.countDown();
                 }
-
-
             });
         }
         try {
