@@ -1,6 +1,6 @@
 package com.example.app.designpattern.publishscribe;
 
-import org.springframework.context.event.EventListener;
+//import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoListener{
 
-    @EventListener(classes ={EventDemo.class})
+//    @EventListener(classes ={EventDemo.class})
     public ReturnedEvent onApplicationEvent(EventDemo event) {
         System.out.println("received  " + event.getMessage());
         return new ReturnedEvent("returned event source");
     }
 
-    @EventListener(classes = {ReturnedEvent.class})
+//    @EventListener(classes = {ReturnedEvent.class})
     @Async
     public void onReturnedEvent(ReturnedEvent returnedEvent){
         System.out.println("returned event source " + returnedEvent.getSource());

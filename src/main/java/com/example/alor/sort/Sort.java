@@ -9,6 +9,8 @@ public interface Sort {
 
     /**
      * bubble sort
+     * time complexity: O(n*n)
+     * 稳定排序
      */
      default void bubbleSort(int[] arr) {
         for(int i = 0 ;i < arr.length; i++) {
@@ -24,6 +26,9 @@ public interface Sort {
 
     /**
      *  insert sort
+     *  time complexity: O(n*n)
+     *  对局部有序的数组排列较快，减少比较和交换的次数
+     *  稳定排序
      */
     default void insertSort(int[] arr) {
         int j;
@@ -38,6 +43,8 @@ public interface Sort {
 
     /**
      * select sort
+     * time complexity: O(n*n)
+     * 不稳定排序
      */
     default void selectSort(int[] arr){
         if(arr == null || arr.length ==0) return;

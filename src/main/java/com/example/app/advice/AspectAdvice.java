@@ -1,6 +1,6 @@
 package com.example.app.advice;
 
-import com.example.app.annotations.OutPower;
+import com.example.app.advice.annotations.OutPower;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;

@@ -3,6 +3,10 @@ package com.example.alor.sort;
 /**
  * @author neo.zr
  * @since 2023/4/4
+ * 基于哨兵划分操作，比较数组元素与哨兵元素的大小，将其划分为左右两个数组（大和小）
+ *
+ * 缓存友好，局部元素之间进行比较和交换，符合CPU多级设计的空间局部性
+ * 交换和比较次数相对归并更少.
  */
 
 public class QuickSort implements Sort{

@@ -1,14 +1,15 @@
 package com.example.app.config;
 
-import com.alibaba.cobar.parser.ast.expression.primary.function.string.X;
-import com.example.app.beaninject.XModel;
 import com.example.app.beaninject.XFactoryBean;
+import com.example.app.beaninject.XModel;
 import com.example.app.service.FooService;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author neo.zr
@@ -33,5 +34,16 @@ public class ConfigDemo {
         model.setName("neo");
         xFactoryBean.setTarget(model);
         return xFactoryBean.getObject();
+    }
+
+    @Bean
+    WebMvcConfigurer createWebMvcConfigurer(@Autowired HandlerInterceptor[] interceptors) {
+        return new WebMvcConfigurer() {
+            public void addInterceptors(InterceptorRegistry registry) {
+                for (HandlerInterceptor interceptor : interceptors) {
+                    registry.addInterceptor(interceptor);
+                }
+            }
+        };
     }
 }

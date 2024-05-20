@@ -1,6 +1,6 @@
 package com.example.app.beaninject;
 
-import com.example.app.annotations.EnableCustomBean;
+import com.example.app.advice.annotations.EnableCustomBean;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -36,5 +36,12 @@ public class MyBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar 
         for (BeanDefinition candidateComponent : candidateComponents) {
             registry.registerBeanDefinition(candidateComponent.getBeanClassName(), candidateComponent);
         }
+    }
+
+    public static void main(String[] args) {
+        int i = 0;
+        do{
+            System.out.println(i);
+        }while(++i < 2);
     }
 }

@@ -1,16 +1,16 @@
 package com.example.alor.sort;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
- *  time complexity: O(nlog(n))
+ *  time complexity: 最好最坏平均 均为O(nlog(n))
  *  space complexity: O(nlog(n))
  * @author neo.zr
  * @since 2023/4/4
  */
 
 public class MergeSort implements Sort{
-
     @Override
     public void sort(int[] arr) {
         int len = arr.length;
