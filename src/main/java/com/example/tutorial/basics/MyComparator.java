@@ -1,5 +1,6 @@
 package com.example.tutorial.basics;
 
+import com.example.entity.Entity;
 import com.google.common.collect.Lists;
 
 import java.util.Comparator;

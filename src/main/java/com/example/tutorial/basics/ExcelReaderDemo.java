@@ -22,18 +22,18 @@ public class ExcelReaderDemo {
         // create work book instance that refers to excel file
         Workbook wb = null;
         Sheet sheet = null;
-        if(excelFileName.endsWith(".xlsx")){
+        if (excelFileName.endsWith(".xlsx")) {
             wb = new XSSFWorkbook(fls);
-        }else if(excelFileName.endsWith(".xls")){
+        } else if (excelFileName.endsWith(".xls")) {
             wb = new HSSFWorkbook(fls);
-        }else{
+        } else {
             throw new RuntimeException("can not handle this file-type");
         }
         sheet = wb.getSheetAt(0);
         FormulaEvaluator formulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
-        for(Row row:sheet){
-            for(Cell cell: row){
-                switch(formulaEvaluator.evaluateInCell(cell).getCellType()){
+        for (Row row : sheet) {
+            for (Cell cell : row) {
+                switch (formulaEvaluator.evaluateInCell(cell).getCellType()) {
                     case NUMERIC:
                         System.out.print(cell.getNumericCellValue() + "\t\t");
                         break;
@@ -48,23 +48,5 @@ public class ExcelReaderDemo {
         }
 
 
-    }
-
-     class A{
-
-    }
-
-    interface B extends Iterable<A>{
-
-
-    }
-
-    class C implements B{
-
-
-        @Override
-        public Iterator<A> iterator() {
-            return null;
-        }
     }
 }

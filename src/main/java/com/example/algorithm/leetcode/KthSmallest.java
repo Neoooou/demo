@@ -1,18 +1,12 @@
-package com.example.tutorial.basics;
+package com.example.algorithm.leetcode;
 
-
-import lombok.Data;
+import com.example.algorithm.tree.TreeNode;
 
 import java.util.Stack;
 
-/**
- * @author neo.zr
- * @since 2023/3/23
- */
+public class KthSmallest {
 
-public class DataStructureDemo {
-
-    public int kthSmallest(TreeNode root, int k) {
+    public int solve(TreeNode root, int k) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;
         while(node != null || !stack.isEmpty()){
@@ -25,7 +19,7 @@ public class DataStructureDemo {
                 TreeNode top = stack.pop();
                 k--;
                 if(k == 0){
-                    return top.val;
+                    return top.value;
                 }
                 node = top.right;
             }
@@ -33,12 +27,5 @@ public class DataStructureDemo {
 
         return -1;
 
-    }
-
-    @Data
-    class TreeNode{
-        int val;
-        TreeNode right;
-        TreeNode left;
     }
 }

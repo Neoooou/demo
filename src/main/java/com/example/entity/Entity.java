@@ -1,4 +1,4 @@
-package com.example.tutorial.basics;
+package com.example.entity;
 
 import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;

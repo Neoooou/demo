@@ -1,5 +1,7 @@
 package com.example.tutorial.basics;
 
+import com.example.entity.Entity;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 

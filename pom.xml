@@ -25,7 +25,16 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.1.3</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
@@ -99,12 +108,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.aliyun.openservices.eas</groupId>
-            <artifactId>eas-sdk</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>org.jpmml</groupId>
             <artifactId>pmml-evaluator</artifactId>
@@ -121,11 +124,7 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.aliyun.tair</groupId>
-            <artifactId>tairjedis-sdk</artifactId>
-            <version>${tairjedis-sdk.version}</version>
-        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -182,13 +181,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.taobao.pandora</groupId>
-                <artifactId>pandora-boot-starter-bom</artifactId>
-                <version>2020-04-release</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>buc-spring-boot-starter</artifactId>
                 <version>1.2.3</version>
@@ -210,27 +202,6 @@
 
     <build>
         <plugins>
-            <!--			<plugin>-->
-            <!--				<groupId>com.taobao.pandora</groupId>-->
-            <!--				<artifactId>pandora-boot-maven-plugin</artifactId>-->
-            <!--				<version>2.1.12</version>-->
-            <!--				<executions>-->
-            <!--					<execution>-->
-            <!--						<phase>package</phase>-->
-            <!--						<goals>-->
-            <!--							<goal>repackage</goal>-->
-            <!--						</goals>-->
-            <!--						<configuration>-->
-            <!--							<plugins>-->
-            <!--								<include>-->
-            <!--									<groupId>com.taobao.pandora.plugin</groupId>-->
-            <!--									<artifactId>acl.plugin</artifactId>-->
-            <!--								</include>-->
-            <!--							</plugins>-->
-            <!--						</configuration>-->
-            <!--					</execution>-->
-            <!--				</executions>-->
-            <!--			</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
