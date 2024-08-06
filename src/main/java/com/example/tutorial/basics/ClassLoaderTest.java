@@ -1,6 +1,6 @@
 package com.example.tutorial.basics;
 
-import com.example.entity.Entity;
+import com.example.entity.SinglyLinkedNode;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +26,9 @@ public class ClassLoaderTest {
         /**
          * 只把.class文件加载到jvm中
          */
-        Class<?> c = loader.loadClass(Entity.class.getName());
+        Class<?> c = loader.loadClass(SinglyLinkedNode.class.getName());
+
+        SinglyLinkedNode instance = (SinglyLinkedNode) c.getConstructor(Integer.class).newInstance(1);
 
         Constructor[] constructors = c.getConstructors();
 
@@ -35,9 +37,8 @@ public class ClassLoaderTest {
         /**
          * 将类的.class文件加载到jvm中，对类进行解释，执行类中的static块
          */
-        Class<?> c1 = Class.forName(Entity.class.getName());
+        Class<?> c1 = Class.forName(SinglyLinkedNode.class.getName());
 
-        Entity entity = (Entity) c.getConstructor(Integer.class, String.class, Double.class).newInstance(1, "jack", 22.2D);
 
     }
 }

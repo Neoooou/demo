@@ -12,7 +12,6 @@ import java.io.InputStream;
 public class StreamDemo {
     public static void main(String[] args) {
 
-
         try(InputStream inputStream = new StreamDemo().getClass().getClassLoader().getResourceAsStream("")){
 
         } catch (IOException ioException) {

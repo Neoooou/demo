@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.util.StopWatch;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -24,6 +25,21 @@ import java.util.Map;
 
 public class HttpRequestDemo {
     public static void main(String[] args) {
+        StopWatch sw = new StopWatch();
+
+        sw.start();
+
+        try{
+
+            Thread.sleep(1000);
+//            if(1==1)
+//            throw new IllegalArgumentException("tt");
+            sw.stop();
+        }catch (Exception e){
+
+        }finally {
+            System.out.println(sw.getTotalTimeMillis());
+        }
 
     }
 
@@ -80,8 +96,6 @@ public class HttpRequestDemo {
             HttpClientContext context = HttpClientContext.create();
             response = httpClient.execute(httpUriRequest, context);
 
-            System.out.println(JSON.toJSONString(response));
-
             inputStream = response.getEntity().getContent();
             int resCode = response.getStatusLine().getStatusCode();
             System.out.println("resCode=" + resCode);
@@ -100,7 +114,6 @@ public class HttpRequestDemo {
             }
         } catch (Exception e) {
             System.out.println(e);
-
         } finally {
             if (httpUriRequest != null) {
                 httpUriRequest.abort();
