@@ -99,12 +99,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.aliyun.openservices.eas</groupId>
-            <artifactId>eas-sdk</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>org.jpmml</groupId>
             <artifactId>pmml-evaluator</artifactId>
@@ -121,11 +115,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.aliyun.tair</groupId>
-            <artifactId>tairjedis-sdk</artifactId>
-            <version>${tairjedis-sdk.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -163,6 +152,18 @@
             <artifactId>hessian</artifactId>
             <version>3.1.3</version>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.aliyun.openservices.eas</groupId>-->
+        <!--            <artifactId>eas-sdk</artifactId>-->
+        <!--            <version>1.0.2-SNAPSHOT</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.aliyun.tair</groupId>-->
+        <!--            <artifactId>tairjedis-sdk</artifactId>-->
+        <!--            <version>${tairjedis-sdk.version}</version>-->
+        <!--        </dependency>-->
+
     </dependencies>
 
     <dependencyManagement>
@@ -181,13 +182,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>com.taobao.pandora</groupId>
-                <artifactId>pandora-boot-starter-bom</artifactId>
-                <version>2020-04-release</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.taobao.pandora</groupId>-->
+<!--                <artifactId>pandora-boot-starter-bom</artifactId>-->
+<!--                <version>2020-04-release</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>buc-spring-boot-starter</artifactId>

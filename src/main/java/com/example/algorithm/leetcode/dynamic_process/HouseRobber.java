@@ -1,10 +1,13 @@
-package com.example.algorithm.dynamic_process;
+package com.example.algorithm.leetcode.dynamic_process;
 
 import java.util.Arrays;
 
 /**
  * @author neo.zr
  * @since 2024/4/19
+ *
+ * 动态规划，房子抢劫
+ * 抢当前房子的价值 = max （抢上一个房子的最大价值， 抢上上个房子的最大价值+当前房子价格）
  */
 
 public class HouseRobber {

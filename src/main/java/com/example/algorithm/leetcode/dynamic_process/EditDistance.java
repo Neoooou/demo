@@ -1,8 +1,10 @@
-package com.example.algorithm.dynamic_process;
+package com.example.algorithm.leetcode.dynamic_process;
 
 /**
  * @author neo.zr
  * @since 2024/4/19
+ * 动态规划
+ *
  */
 
 public class EditDistance {

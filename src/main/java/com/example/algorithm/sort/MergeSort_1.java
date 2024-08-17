@@ -1,5 +1,8 @@
 package com.example.algorithm.sort;
 
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  *  time complexity: O(nlog(n))
  *  space complexity: O(n)
@@ -14,6 +17,18 @@ public class MergeSort_1 implements Sort{
 
     private int number;
 
+    public static void main(String[] args) {
+        int[] arr = new int[100];
+        Random random = new Random();
+        for(int i = 0; i < arr.length; ++i){
+            arr[i] = random.nextInt(100);
+        }
+        System.out.println(Arrays.toString(arr));
+        new MergeSort_1().sort(arr);
+        System.out.println(Arrays.toString(arr));
+        new MergeSort_1().bubbleSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
     @Override
     public void sort(int[] arr) {
         this.numbers = arr;
@@ -37,7 +52,6 @@ public class MergeSort_1 implements Sort{
     }
 
     private void merge(int low, int middle, int high) {
-
         // Copy both parts into the helper array
         for (int i = low; i <= high; i++) {
             helper[i] = numbers[i];
