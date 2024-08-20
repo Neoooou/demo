@@ -1,28 +1,38 @@
-## OSI - 网络互联框架
+## 1.Open System Interconnection Model(OSI)
+![img.png](img.png)
+### 1.1 Data Link Layer 数据链路层
+Packets are framed and sent to the next device.
+### 1.2 Physical Layer 物理层
+Frames are converted into bits and transmitted physically.
+接入网络的设备必须安装网络适配器-网卡，保证数据包在网卡与网络层正确无误传输，定义MAC地址，即网卡接受和发送数据包地址
 
-- 数据链路层（物理层、数据链路层）
+### 1.3 Network Layer 网络层
+Segments are packaged into packets and routed
+网络层引入了IP协议，制定了一套新地址，使得我们能够区分两台主机是否同属一个网络，这套地址就是网络地址，也就是所谓的IP地址。IP协议将这个32位的地址分为两部分，前面部分代表网络地址，后面部分表示该主机在局域网中的地址。如果两个IP地址在同一个子网内，则网络地址一定相同。为了判断IP地址中的网络地址，IP协议还引入了子网掩码，IP地址和子网掩码通过按位与运算后就可以得到网络地址。
 
-  接入网络的设备必须安装网络适配器-网卡，保证数据包在网卡与网络层正确无误传输，定义MAC地址，即网卡接受和发送数据包地址
-
-- 网络层
-
-  网络层引入了IP协议，制定了一套新地址，使得我们能够区分两台主机是否同属一个网络，这套地址就是网络地址，也就是所谓的IP地址。IP协议将这个32位的地址分为两部分，前面部分代表网络地址，后面部分表示该主机在局域网中的地址。如果两个IP地址在同一个子网内，则网络地址一定相同。为了判断IP地址中的网络地址，IP协议还引入了子网掩码，IP地址和子网掩码通过按位与运算后就可以得到网络地址。
-
-- 传输层
-
-  链路层定义了主机的身份，即MAC地址，而网络层定义了IP地址，明确了主机所在的网段，有了这两个地址，数据包就从可以从一个主机发送到另一台主机。但实际上数据包是从一个主机的某个应用程序发出，然后由对方主机的应用程序接收。而每台电脑都有可能同时运行着很多个应用程序，所以当数据包被发送到主机上以后，是无法确定哪个应用程序要接收这个包。
-
-  - TCP：Transmission Control Protocol - 传输控制协议，提供面向连接、可靠的传输服务，客户端和服务端在交换数据之前会建立一个可靠的TCP连接，并且提供超时重发、丢弃重复数据、检验数据等功能
-  - UDP：User Data Protocol -  用户数据报协议， 提供无连接无状态的传输服务，对数据安全性无特殊要求，丢包不重发，网络负担非常重，但对响应速度要求高，例如ping就是使用udp
-
-- 应用层（会话层、表示层、应用层）
-
-  理论上讲，有了以上三层协议的支持，数据已经可以从一个主机上的应用程序传输到另一台主机的应用程序了，但此时传过来的数据是字节流，不能很好的被程序识别，操作性差，因此，应用层定义了各种各样的协议来规范数据格式，常见的有http、ftp,等，在请求Header中，分别定义了请求数据格式Accept和响应数据格式Content-Type，有了这个规范以后，当对方接收到请求以后就知道该用什么格式来解析，然后对请求进行处理，最后按照请求方要求的格式将数据返回，请求端接收到响应后，就按照规定的格式进行解读
-  
-  - FTP
-  - HTTP
+### 1.4 Transport Layer 传输层
+Data is broken into segments for reliable delivery.
+链路层定义了主机的身份，即MAC地址，而网络层定义了IP地址，明确了主机所在的网段，有了这两个地址，数据包就从可以从一个主机发送到另一台主机。但实际上数据包是从一个主机的某个应用程序发出，然后由对方主机的应用程序接收。而每台电脑都有可能同时运行着很多个应用程序，所以当数据包被发送到主机上以后，是无法确定哪个应用程序要接收这个包。
+- TCP：Transmission Control Protocol - 传输控制协议，提供面向连接、可靠的传输服务，客户端和服务端在交换数据之前会建立一个可靠的TCP连接，并且提供超时重发、丢弃重复数据、检验数据等功能
+- UDP：User Data Protocol -  用户数据报协议， 提供无连接无状态的传输服务，对数据安全性无特殊要求，丢包不重发，网络负担非常重，但对响应速度要求高，例如ping就是使用udp
 
 
+### 1.5 Session Layer 会话层
+Connections are established and managed.
+
+### 1.6 Presentation Layer 展示层
+Data is formatted and encrypted.
+
+### 1.7 Application Layer 应用层
+Applications create the data.
+
+理论上讲，有了以上三层协议的支持，数据已经可以从一个主机上的应用程序传输到另一台主机的应用程序了，但此时传过来的数据是字节流，不能很好的被程序识别，操作性差，
+- 因此，应用层定义了各种各样的协议来规范数据格式，常见的有http、ftp,等，在请求Header中，分别定义了请求数据格式Accept和响应数据格式Content-Type，
+- 有了这个规范以后，当对方接收到请求以后就知道该用什么格式来解析，然后对请求进行处理，最后按照请求方要求的格式将数据返回，请求端接收到响应后，就按照规定的格式进行解读
+
+
+Traceroute, Ping, MTR, and PathPing are network tools or utilities that use the ICMP protocol to perform testing to diagnose issues on a network.
+ICMP(Internet Control Message Protocol) is actually a used of IP protocol 
 
 ## 从浏览器输入一个网址，到页面展示中间经历的过程：
 

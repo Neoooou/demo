@@ -13,7 +13,9 @@ public class ThreadDemo {
     static ExecutorService executorService = Executors.newFixedThreadPool(2);
     public static void main(String[] args) throws InterruptedException {
         Thread.sleep(100); // 释放CPU资源，不释放锁资源，进入Blocked状态
-//
+
+        o.wait(); // 让出CPU时间片，释放当前锁
+
         Thread.yield(); // 让出CPU时间片，线程回到runnable状态
 
         executorService.submit(new DemoRunnable());
