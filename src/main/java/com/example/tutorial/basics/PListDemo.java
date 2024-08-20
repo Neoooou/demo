@@ -9,31 +9,6 @@ import java.util.*;
  */
 
 public class PListDemo {
-    public static void main(String[] args) {
-        Queue<Integer> queue = new PriorityQueue<Integer>();
-        // time complexity O(log(N))
-        queue.offer(2);
-
-        // time complexity O(1)
-        Integer peek = queue.peek();
-
-        // time complexity O(log(N))
-        Integer poll = queue.poll();
-        // time complexity O(N)
-        queue.remove(2);
-
-        System.out.println(queue.poll());
-
-        int i =6, j = 1;
-        double m = (i + j) / 2.0D;
-        System.out.println(m);
-
-        Stack<Integer> s = new Stack<>();
-        s.push(1);
-        s.push(2);
-        System.out.println(s.pop());
-        System.out.println(s.pop());
-    }
 
     public static long maximumQuality(List<Integer> packets, int channels) {
         // Write your code here
@@ -74,24 +49,6 @@ public class PListDemo {
     }
 
 
-    /*
-     * Complete the 'findMaxProducts' function below.
-     *
-     * The function is expected to return a LONG_INTEGER.
-     * The function accepts INTEGER_ARRAY products as parameter.
-     */
-
-    public static long findMaxProducts(List<Integer> products) {
-        // Write your code here
-        if(products == null || products.size() < 1){
-            return 0L;
-        }
-
-        int left = 0, right = products.size() - 1;
-        long max = 0;
-        return 1L;
-
-    }
 
 
 }
