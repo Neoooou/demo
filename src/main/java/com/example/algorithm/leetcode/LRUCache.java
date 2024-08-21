@@ -42,6 +42,25 @@ public class LRUCache{
     }
 
     /**
+     * O(1)
+     */
+    public void put(int key, int value){
+        if(data.containsKey(key)){
+            Node node = data.get(key);
+            node.val = value;
+            moveToTail(node);
+        }else{
+            Node node = new Node(key, value);
+            data.put(key, node);
+            setAsTail(node);
+            if(data.size() > capacity){
+                Node head = dummyHead.next;
+                data.remove(head.key);
+                dropNode(head);
+            }
+        }
+    }
+    /**
      * move the node to the tail of linked list where the most recently used node locates
      */
     private void moveToTail(Node node) {
@@ -63,47 +82,6 @@ public class LRUCache{
         node.prev = prev;
         node.next = dummyTail;
         dummyTail.prev = node;
-    }
-
-    /**
-     * O(1)
-     */
-    public void put(int key, int value){
-        if(data.containsKey(key)){
-            Node node = data.get(key);
-            node.val = value;
-            moveToTail(node);
-        }else{
-            Node node = new Node(key, value);
-            data.put(key, node);
-            setAsTail(node);
-            if(data.size() > capacity){
-                Node head = dummyHead.next;
-                data.remove(head.key);
-                dropNode(head);
-            }
-        }
-    }
-
-    public void moveZeroes(int[] nums) {
-        if(nums == null || nums.length < 2){
-            return;
-        }
-
-
-        int idx = 0;
-        for(int i=0; i<nums.length; ++i){
-            if(nums[i] != 0){
-                nums[idx] = nums[i];
-                idx ++;
-            }
-        }
-        while(idx < nums.length){
-            nums[idx] = 0;
-            idx++;
-        }
-
-
     }
 
     static class Node{
