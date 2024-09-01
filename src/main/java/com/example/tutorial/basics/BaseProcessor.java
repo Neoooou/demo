@@ -5,7 +5,7 @@ package com.example.tutorial.basics;
  * @since 2023/8/17
  */
 
-public abstract class BaseClass {
+public abstract class BaseProcessor {
 
     public void process(){
         System.out.println("className " + this.getClass().getSimpleName());

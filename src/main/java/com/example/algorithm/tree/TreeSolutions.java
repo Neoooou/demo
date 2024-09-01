@@ -61,4 +61,47 @@ public class TreeSolutions {
         return false;
     }
 
+
+
+    private static int getMedian(TreeNode n,int kth) {
+        int leftLeave = n.left == null ?0 : n.left.key;
+        int dif = kth - leftLeave;
+        if(dif == 1) {
+            return n.value;
+        }else if(dif > 1) {
+            return getMedian(n.right,dif);
+        }else {
+            return getMedian(n.left,kth);
+        }
+    }
+
+    public int kthSmallest(TreeNode root, int k) {
+        if (root == null || k <= 0) {
+            return -1;
+        }
+
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        TreeNode node = root;
+        while(!stack.isEmpty()) {
+            //Left first
+            while (node != null && node.left != null) {
+                stack.add(node.left);
+                node = node.left;
+            }
+            //Process left/curr
+            node = stack.pop();
+            k--;
+            if (k == 0) {
+                return node.value;
+            }
+            node = node.right;
+            if (node != null) {
+                stack.push(node);
+            }
+        }
+
+        return -1;
+    }
+
 }

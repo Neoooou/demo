@@ -1,5 +1,5 @@
 ## 1.Open System Interconnection Model(OSI)
-![img.png](img.png)
+![img.png](osi.png)
 ### 1.1 Data Link Layer 数据链路层
 Packets are framed and sent to the next device.
 ### 1.2 Physical Layer 物理层
@@ -12,9 +12,13 @@ Segments are packaged into packets and routed
 
 ### 1.4 Transport Layer 传输层
 Data is broken into segments for reliable delivery.
-链路层定义了主机的身份，即MAC地址，而网络层定义了IP地址，明确了主机所在的网段，有了这两个地址，数据包就从可以从一个主机发送到另一台主机。但实际上数据包是从一个主机的某个应用程序发出，然后由对方主机的应用程序接收。而每台电脑都有可能同时运行着很多个应用程序，所以当数据包被发送到主机上以后，是无法确定哪个应用程序要接收这个包。
-- TCP：Transmission Control Protocol - 传输控制协议，提供面向连接、可靠的传输服务，客户端和服务端在交换数据之前会建立一个可靠的TCP连接，并且提供超时重发、丢弃重复数据、检验数据等功能
-- UDP：User Data Protocol -  用户数据报协议， 提供无连接无状态的传输服务，对数据安全性无特殊要求，丢包不重发，网络负担非常重，但对响应速度要求高，例如ping就是使用udp
+链路层定义了主机的身份，即MAC地址，而网络层定义了IP地址，明确了主机所在的网段，有了这两个地址，数据包就从可以从一个主机发送到另一台主机。 但实
+际上数据包是从一个主机的某个应用程序发出，然后由对方主机的应用程序接收。而每台电脑都有可能同时运行着很多个应用程序，所以当数据包被发送到主机上以
+后，是无法确定哪个应用程序要接收这个包。
+- TCP：Transmission Control Protocol - 传输控制协议，提供面向连接、可靠的传输服务，客户端和服务端在交换数据之前会建立一个可靠的TCP连接，
+并且提供超时重发、丢弃重复数据、检验数据等功能
+- UDP：User Data Protocol -  用户数据报协议， 提供无连接无状态的传输服务，对数据安全性无特殊要求，丢包不重发，网络负担非常重， 但对响应速度
+要求高，例如ping就是使用udp
 
 
 ### 1.5 Session Layer 会话层
@@ -108,7 +112,9 @@ TCP连接在断开时需要发送四个包，是改进版的三次握手，不�
 
 - 第四次挥手
 
-  客户端收到服务端的关闭请求，发送ACK 确认包，进入TIME_WAIT状态。同时服务端接收确认包，关闭连接，进入CLOSED状态。客户端等待了某个固定时间（两个最大段生命周期，2MSL，2 Maximum Segment Lifetime， 2min）之后，没有收到服务器端的 ACK ，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入 `CLOSED` 状态
+  客户端收到服务端的关闭请求，发送ACK 确认包，进入TIME_WAIT状态。同时服务端接收确认包，关闭连接，进入CLOSED状态。客户端等待了某个固定时间
+（两个最大段生命周期，2MSL，2 Maximum Segment Lifetime， 2min）之后，没有收到服务器端的 ACK ，认为服务器端已经正常关闭连接，于是自己也
+关闭连接，进入 `CLOSED` 状态
 
 客户端：FIN_WAIT_1 -> FIN_WAIT_2 -> TIME_WAIT -> CLOSED
 服务端：CLOSE_WAIT -> LAST_ACK -> CLOSED
@@ -156,9 +162,6 @@ websocket，使用长连接，双全工的通信机制，第一次TCP链路建�
    缺点：实现复杂
 
    Ajax的
-
-   
-
 连接与轮训无任何关联，长/短连接表示建立和保持连接的方式，长/短轮训表示服务端响应请求的方式
 
 ## HTTP

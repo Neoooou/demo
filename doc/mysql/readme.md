@@ -312,7 +312,7 @@ buffer里的数据写到磁盘：
 ## 慢SQL
 
 ### SQL执行过程
-![Alt text](image-1.png)
+![Alt text](sql_execute_flow.png)
 
 建立连接 -> 权限验证 -> SQL解析 -> SQL优化 -> SQL执行
 ```
