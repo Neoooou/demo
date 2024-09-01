@@ -1,10 +1,15 @@
 package com.example.algorithm.leetcode;
 
-import com.google.common.base.Functions;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * 三数之和为零组合
+ * 滑动指针
+ */
 public class Sum3 {
     public List<List<Integer>> threeSum(int[] nums) {
         int n = nums.length;

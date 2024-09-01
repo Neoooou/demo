@@ -1,9 +1,12 @@
-package com.example.algorithm.leetcode;
+package com.example.algorithm.leetcode.backtrack;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 回溯
+ *  找执行逻辑之间关系， 停止条件
+ *  大化小，小化了
  * @author neo.zr
  * @since 2023/8/28
  */
