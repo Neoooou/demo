@@ -11,13 +11,11 @@ import java.lang.ref.WeakReference;
 public class WeakRefTest {
 
     public static void main(String[] args) {
-        WeakReference<String> sr = new WeakReference<String>(new String("hello"));
+        GCTargetWeakReference reference = new GCTargetWeakReference(new GCTarget("MOCK_ID"));
 
-        System.out.println(sr.get());
-
-        // String var = sr.get();
         System.gc();                //通知JVM的gc进行垃圾回收
-        System.out.println(sr.get());
+
+        System.out.println(reference.get());
     }
 
 
@@ -31,9 +29,8 @@ public class WeakRefTest {
         // 弱引用的ID
         public String id;
 
-        public GCTargetWeakReference(GCTarget gcTarget,
-                                     ReferenceQueue<? super GCTarget> queue) {
-            super(gcTarget, queue);
+        public GCTargetWeakReference(GCTarget gcTarget) {
+            super(gcTarget);
             this.id = gcTarget.id;
         }
 

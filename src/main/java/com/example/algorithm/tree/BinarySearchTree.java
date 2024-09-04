@@ -41,6 +41,7 @@ public class BinarySearchTree {
         if (isRed(h.left)  && isRed(h.right))     flipColors(h);
         return h;
     }
+
     private TreeNode resetRoot(TreeNode root) {
         int leftLeave = root.left == null? 0 : root.left.key;
         int rightLeave = root.right == null? 0 : root.right.key;
@@ -129,57 +130,6 @@ public class BinarySearchTree {
             else if (cmp  > 0) x = x.right;
             else if (cmp == 0) return x.value;
         }
-        return -1;
-    }
-
-
-    public static void viewTree(TreeNode node,String posi) {
-        System.out.println(posi+node.toString());
-        if(node.left != null)
-            viewTree(node.left,"left");
-        if(node.right != null)
-            viewTree(node.right,"right");
-        System.out.println("--");
-    }
-
-    private static int getMedian(TreeNode n,int kth) {
-        int leftLeave = n.left == null ?0 : n.left.key;
-        int dif = kth - leftLeave;
-        if(dif == 1) {
-            return n.value;
-        }else if(dif > 1) {
-            return getMedian(n.right,dif);
-        }else {
-            return getMedian(n.left,kth);
-        }
-    }
-
-    public int kthSmallest(TreeNode root, int k) {
-        if (root == null || k <= 0) {
-            return -1;
-        }
-
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        stack.push(root);
-        TreeNode node = root;
-        while(!stack.isEmpty()) {
-            //Left first
-            while (node != null && node.left != null) {
-                stack.add(node.left);
-                node = node.left;
-            }
-            //Process left/curr
-            node = stack.pop();
-            k--;
-            if (k == 0) {
-                return node.value;
-            }
-            node = node.right;
-            if (node != null) {
-                stack.push(node);
-            }
-        }
-
         return -1;
     }
 }

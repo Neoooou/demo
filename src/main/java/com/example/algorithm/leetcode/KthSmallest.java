@@ -6,6 +6,7 @@ import java.util.Stack;
 
 public class KthSmallest {
 
+    // left - root - right 中序遍历
     public int solve(TreeNode root, int k) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;
@@ -26,6 +27,5 @@ public class KthSmallest {
         }
 
         return -1;
-
     }
 }

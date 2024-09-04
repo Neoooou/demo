@@ -1,5 +1,7 @@
 package com.example.algorithm.tree;
 
+import org.apache.poi.ss.formula.functions.T;
+
 import java.util.*;
 
 /**
@@ -8,6 +10,19 @@ import java.util.*;
  */
 
 public class LevelOrder {
+
+    public static void main(String[] args) throws Exception {
+        TreeNode root = TreeNode.demoTree();
+
+        List<List<Integer>> lists = new LevelOrder().levelOrder(root);
+
+        for(List<Integer> l: lists){
+            System.out.println(l);
+        }
+        retry:
+            System.out.println(1);
+            throw new Exception();
+    }
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> ret = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();

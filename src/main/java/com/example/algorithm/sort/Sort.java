@@ -60,6 +60,9 @@ public interface Sort {
         }
     }
 
-
+    /**
+     * in-place sort
+     * @param arr
+     */
     void sort(int[] arr);
 }
