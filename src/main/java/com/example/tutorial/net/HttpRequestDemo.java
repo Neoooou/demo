@@ -1,6 +1,7 @@
 package com.example.tutorial.net;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -25,21 +26,7 @@ import java.util.Map;
 
 public class HttpRequestDemo {
     public static void main(String[] args) {
-        StopWatch sw = new StopWatch();
-
-        sw.start();
-
-        try{
-
-            Thread.sleep(1000);
-//            if(1==1)
-//            throw new IllegalArgumentException("tt");
-            sw.stop();
-        }catch (Exception e){
-
-        }finally {
-            System.out.println(sw.getTotalTimeMillis());
-        }
+        callCtripOpenApi();
 
     }
 
@@ -50,7 +37,7 @@ public class HttpRequestDemo {
 
         try {
             HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-            String requestUri = "https://authent-sandbox.era.raileurope.com/oauth2/token";
+            String requestUri = "https://stg-cloud.authorization.go.com/token";
             CloseableHttpClient httpClient = httpClientBuilder.build();
 
             httpClient = HttpClients.createDefault();
@@ -58,40 +45,28 @@ public class HttpRequestDemo {
             headers.put("Accept", "*/*");
             headers.put("Content-Type", "application/x-www-form-urlencoded");
 
-            Map<String, String> requestBody = new HashMap<>();
-            requestBody.put("grant_type", "client_credentials");
-            requestBody.put("client_id", "4bk806i04jgr10j2s5p71hega8");
-            requestBody.put("client_secret", "1qkpf0giumi0dh6pf19trnr69jhpgqs0aflnbcfe3d774vurqm54");
+            JSONObject bodyJSON = new JSONObject()
+                    .fluentPut("grant_type", "client_credentials")
+                    .fluentPut("scope", "RETURN_ALL_CLIENT_SCOPES")
+                    .fluentPut("client_id", "TPR-CTRIP.B2B-STAGE")
+                    .fluentPut("client_secret", "52Px7KP5~NO.wrg6iJqbRjbgWf7jC8yV");
 
             String encodeName = "utf-8";
-            String method = "POST";
-            if ("POST".equals(method)) {
-                HttpPost httpPost = new HttpPost(requestUri);
-                /* httpPost.setEntity(new ByteArrayEntity(JSONObject.toJSONString(requestBody).getBytes(encodeName)));
-                 */
-                if (headers != null) {
-                    for (Map.Entry<String, String> entry : headers.entrySet()) {
-                        httpPost.setHeader(entry.getKey(), entry.getValue());
-                    }
-                }
+            HttpPost httpPost = new HttpPost(requestUri);
+            /* httpPost.setEntity(new ByteArrayEntity(JSONObject.toJSONString(requestBody).getBytes(encodeName)));
+             */
 
-
-                List<NameValuePair> form = new ArrayList<NameValuePair>();
-                for (Map.Entry<String, String> entry : requestBody.entrySet()) {
-                    form.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-                }
-                UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(form, encodeName);
-                httpPost.setEntity(encodedFormEntity);
-                httpUriRequest = httpPost;
-            } else {
-                HttpGet httpGet = new HttpGet(requestUri);
-                if (headers != null) {
-                    for (Map.Entry<String, String> entry : headers.entrySet()) {
-                        httpGet.setHeader(entry.getKey(), entry.getValue());
-                    }
-                }
-                httpUriRequest = httpGet;
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpPost.setHeader(entry.getKey(), entry.getValue());
             }
+
+            List<NameValuePair> form = new ArrayList<NameValuePair>();
+            for (Map.Entry<String, Object> entry : bodyJSON.entrySet()) {
+                form.add(new BasicNameValuePair(entry.getKey(), entry.getValue().toString()));
+            }
+            UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(form, encodeName);
+            httpPost.setEntity(encodedFormEntity);
+            httpUriRequest = httpPost;
 
             HttpClientContext context = HttpClientContext.create();
             response = httpClient.execute(httpUriRequest, context);
@@ -123,5 +98,64 @@ public class HttpRequestDemo {
             }
         }
 
+    }
+
+    public static void getRequest() {
+        CloseableHttpResponse response = null;
+        InputStream inputStream = null;
+        HttpGet httpGet = null;
+        try {
+            HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+            String requestUri = "https://stg-cloud.authorization.go.com/token";
+            CloseableHttpClient httpClient = httpClientBuilder.build();
+
+            httpClient = HttpClients.createDefault();
+            Map<String, String> headers = new HashMap<String, String>(){{
+                put("Accept", "*/*");
+                put("Content-Type", "application/x-www-form-urlencoded");
+            }};
+
+            JSONObject bodyJSON = new JSONObject()
+                    .fluentPut("grant_type", "client_credentials")
+                    .fluentPut("scope", "RETURN_ALL_CLIENT_SCOPES")
+                    .fluentPut("client_id", "TPR-CTRIP.B2B-STAGE")
+                    .fluentPut("client_secret", "52Px7KP5~NO.wrg6iJqbRjbgWf7jC8yV");
+
+            String encodeName = "utf-8";
+
+            httpGet = new HttpGet(requestUri);
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpGet.setHeader(entry.getKey(), entry.getValue());
+            }
+
+            HttpClientContext context = HttpClientContext.create();
+            response = httpClient.execute(httpGet, context);
+
+            inputStream = response.getEntity().getContent();
+            int resCode = response.getStatusLine().getStatusCode();
+            System.out.println("resCode=" + resCode);
+
+            if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
+                ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
+                byte[] buff = new byte[1000];
+                int ri = 0;
+                while ((ri = inputStream.read(buff, 0, 1000)) > 0) {
+                    swapStream.write(buff, 0, ri);
+                }
+                String resBody = new String(swapStream.toByteArray(), encodeName);
+                System.out.println("resBody=" + resBody);
+            } else {
+                throw new Exception(String.format("%s %s", response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase()));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (httpGet != null) {
+                httpGet.abort();
+            }
+            if (response != null) {
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
+        }
     }
 }
