@@ -17,6 +17,11 @@ public class AESUtil {
     private static final String KEY_AES = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
+    public static void main(String[] args) throws Exception {
+        String data = "ajnblabffopapiehnneihinblopeaobejkofddmpganakhaikmjfbbommcbajppnplaodncgbbonhcfaokdiepdgpdfjbhgnekjncnojfdpnbmlbcilghjncfcfhbndfaibjkknggpeeoddkhoijgajcpkjjcphikldkheadbgihnnnckdcgakmomgkccdldlceclfepadpmbpeadddgiaalmjgejbbbfpmnapfnmafdhmibnkomoecjkplbkfgflodamfmpmlamflmbonlhkpfbkeembfeegjdpjpdjdkphcbljjnacpinjiikkgncmbofgneijndljmcfjjmlcmhjmkbmliccnnphieknlefbphmpmgmdkijccdalfnigfcjoccfiphkfljkgomebmekbegaeeojefdlhcnplgjiacfhehineebppjmamfhfgdpikdekpfpfigcblcellojfgmjdbalaffklaokfgpejcokiipoolkiapeeabjnfejbfpnamfonbllakgpickehdikbkeefoohcibhlcinmiemnehofpcgjpnnkiffbghlhpffjkkfnmnokpndcafpijkjgikfjdeelmbhdmekeleagbkiebageepebebjokkacbmfllapgombhagaigkbmohejpcomdnb";
+        String decData = decrypt(data, "D2DN340LGYSsBrP6", "5693259981590433");
+        System.out.println(decData);
+    }
     /**
      * 加密方法
      *
@@ -37,18 +42,18 @@ public class AESUtil {
     /**
      * 解密方法
      *
-     * @param decData   要解密的数据
+     * @param data   要解密的数据
      * @param secretKey 密钥 ,16位的数字和字母
      * @param vector    初始化向量,16位的数字和字母
      */
-    public static String decrypt(String decData, String secretKey, String vector) throws Exception {
+    public static String decrypt(String data, String secretKey, String vector) throws Exception {
         byte[] raw = secretKey.getBytes(StandardCharsets.UTF_8);
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         IvParameterSpec iv = new IvParameterSpec(vector.getBytes(StandardCharsets.UTF_8));
         cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-        byte[] encrypted1 = decodeBytes(decData);
-        byte[] original = cipher.doFinal(encrypted1);
+        byte[] bytes = decodeBytes(data);
+        byte[] original = cipher.doFinal(bytes);
         return new String(original, StandardCharsets.UTF_8);
     }
 

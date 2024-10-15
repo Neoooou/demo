@@ -2,6 +2,7 @@ package com.example.app;
 
 import com.example.app.advice.annotations.EnableCustomBean;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.trip.ttd.HelloWorld;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -29,13 +30,8 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 public class DemoApplication {
 
     public static void main(String[] args) throws JsonProcessingException {
-//        PandoraBootstrap.run(args);
-//        ConfigurableApplicationContext context =
-//                new SpringApplicationBuilder(DemoApplication.class).run(args);
-//        PandoraBootstrap.markStartupAndWait();
-
-
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+
     }
 
 }

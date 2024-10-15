@@ -3,6 +3,8 @@ package com.example.tutorial;
 import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
 import com.caucho.hessian.io.SerializerFactory;
+import com.lazada.lazop.api.LazopClient;
+import com.trip.ttd.HelloWorld;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,6 +19,10 @@ import java.io.InputStream;
 public class HessianSerializer {
 
     SerializerFactory serializerFactory = new SerializerFactory();
+
+    public static void main(String[] args) {
+
+    }
 
     /**
      * 反序列化

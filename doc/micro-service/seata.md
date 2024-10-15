@@ -47,6 +47,12 @@ TC收到所有RM的反馈后，所有RM反馈成功，TC发送Commit请求提交
 
 ## AT
 最终一致的分阶段事务模式，无业务侵入，也是Seata的默认模式
+全局锁
+before Image
+after Image
+
+roll back：对比after image
+commit： 释放锁。
 
 ## SAGA
 
