@@ -1,4 +1,4 @@
-package com.example.tutorial.concurrent;
+package com.example.algorithm.interview;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,12 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * @author neo.zr
- * @since 2023/8/3
- */
-
-public class Solution {
+public class MultiThreadPrint {
 
     static ExecutorService executorService = Executors.newFixedThreadPool(10);
 
