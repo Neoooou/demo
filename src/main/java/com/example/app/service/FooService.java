@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import com.example.app.util.SpringContextUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author: neo.zr
@@ -8,6 +9,7 @@ import com.example.app.util.SpringContextUtils;
  */
 
 public class FooService {
+    @Transactional
     public FooService getService(){
         return SpringContextUtils.getBean(this.getClass());
     }

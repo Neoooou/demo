@@ -5,7 +5,11 @@ package com.example.algorithm.interview;
  * @since 2024/1/25
  */
 
-public class Sq {
+public class Square {
+
+    public static void main(String[] args) {
+
+    }
 
     /**
      * 二分开根号

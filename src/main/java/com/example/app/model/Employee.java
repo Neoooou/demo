@@ -13,4 +13,8 @@ import lombok.experimental.Accessors;
 public class Employee {
     String name;
     String role;
+    int age;
+    boolean isLeader;
+    double salary;
+    byte gender;
 }

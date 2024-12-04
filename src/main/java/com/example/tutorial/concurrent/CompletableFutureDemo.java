@@ -1,9 +1,6 @@
 package com.example.tutorial.concurrent;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 
 /**
  * @author neo.zr
@@ -23,4 +20,5 @@ public class CompletableFutureDemo {
         });
         System.out.println(future.get(600, TimeUnit.MILLISECONDS));
     }
+
 }

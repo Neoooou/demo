@@ -15,9 +15,6 @@ public class CollectionStream {
     public static void main(String[] args) {
         String s = "";
         System.out.println(StringUtils.isEmpty(s = "abc"));
-        System.out.println(Objects.equals(null, 1L));
-        System.out.println(Objects.equals(1L, 1L));
-        System.out.println(Objects.equals(null, null));
         Traveler t1 = new Traveler().setTravelerId(1L).setPassport("PP1").setGender("Male");
         Traveler t2 = new Traveler().setTravelerId(2L).setPassport("PP2").setGender("Male");
         Traveler t3 = new Traveler().setTravelerId(3L).setPassport("PP3").setGender("Female");
@@ -27,12 +24,11 @@ public class CollectionStream {
         Map<String, List<Traveler>> travelerMap = travelerList.stream().collect(Collectors.groupingBy(Traveler::getGender));
         System.out.println(travelerMap);
 
-        HashMap<String, Integer> intMap = Maps.newHashMap();
-        intMap.put(null, 1);
-        System.out.println(intMap.get(null));
-
-        t1.setGender(null);
         travelerMap = travelerList.stream().collect(Collectors.groupingBy(Traveler::getGender));
         System.out.println(travelerMap);
+
+
+        List<String> l = Lists.newArrayList("abc", "a", "c");
+        System.out.println(l.stream().anyMatch(StringUtils::isEmpty));
     }
 }

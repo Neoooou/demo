@@ -21,6 +21,8 @@ public class AESUtil {
         String data = "ajnblabffopapiehnneihinblopeaobejkofddmpganakhaikmjfbbommcbajppnplaodncgbbonhcfaokdiepdgpdfjbhgnekjncnojfdpnbmlbcilghjncfcfhbndfaibjkknggpeeoddkhoijgajcpkjjcphikldkheadbgihnnnckdcgakmomgkccdldlceclfepadpmbpeadddgiaalmjgejbbbfpmnapfnmafdhmibnkomoecjkplbkfgflodamfmpmlamflmbonlhkpfbkeembfeegjdpjpdjdkphcbljjnacpinjiikkgncmbofgneijndljmcfjjmlcmhjmkbmliccnnphieknlefbphmpmgmdkijccdalfnigfcjoccfiphkfljkgomebmekbegaeeojefdlhcnplgjiacfhehineebppjmamfhfgdpikdekpfpfigcblcellojfgmjdbalaffklaokfgpejcokiipoolkiapeeabjnfejbfpnamfonbllakgpickehdikbkeefoohcibhlcinmiemnehofpcgjpnnkiffbghlhpffjkkfnmnokpndcafpijkjgikfjdeelmbhdmekeleagbkiebageepebebjokkacbmfllapgombhagaigkbmohejpcomdnb";
         String decData = decrypt(data, "D2DN340LGYSsBrP6", "5693259981590433");
         System.out.println(decData);
+
+        System.out.println(encrypt(decData, "D2DN340LGYSsBrP6", "5693259981590433"));
     }
     /**
      * 加密方法

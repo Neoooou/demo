@@ -1,6 +1,6 @@
 
 ## 组件
-![Alt text](../image.png)
+![Alt text](img/image.png)
 **NameServer**
 注册中心，管理路由信息和Broker
 - 向其他组件提供路由信息暴露服务
@@ -43,7 +43,18 @@ mmap内存映射技术
 Topic对应的队列，一台Broker机器包含同一个Topic的多个队列
 
 ### Index File
-使用hash存储了messageKey和tag对应的消息偏移
+使用hash存储了messageKey和tag对应的消息偏移,{Key:hash(topic&messageKey), value:offset in commitLog}
+存储结构分为
+Header：最早的消息存储时间、最晚的消息存储时间、最早的偏移Offset、最晚的偏移Offset、最大可存储的Hash槽数目、已使用的Hash槽数目
+HashSlot：存储每个值在索引文件中的逻辑下标（绝对偏移量），属于固定数量的Hash槽，因为Header和HashSlot部分长度固定，所以可以计算出该绝对偏移量
+Index Item:Hash Key， offset in commitLog，Next Point 链表下一项的逻辑下标
+刷盘机制：写完一个索引文件之后刷盘到磁盘
+
+
+过期清除:
+- 达到清除时间点（72小时），清除该时间点以前的Commit Log、Consume Queue、IndexFile
+- 达到磁盘阈值警戒线（75%），
+- 每10s检查一次，通常情况下每天凌晨4点删除超过72小时的CommitLog；如果CommitLog所在磁盘分区的磁盘占用率超过75%，则会触发CommitLog文件清理；如果CommitLog所在磁盘分区的磁盘占用率超过85%，则会强制删除CommitLog文件
 
 ### 事务消息
 
@@ -110,4 +121,6 @@ partition物理上由多个segment组成
 
 - ACK设置为0，只要Producer把消息发送出去，不管有没有写入在PartitionLeader的磁盘上，都认为消息发送成功
 - ACK设置为1，只要PartitionLeader接收到消息并且写入到磁盘，则认为发送成功。但是不确定其他follower有没有同步过去这条消息
-- ACK设置为All，PartionLeader接收到消息且写入到磁盘，另外要求ISR（In-Sync-Replicas,也就是保持同步的副本，即与leader保持同步的folloers）列表里的followers都把消息同步过去，才认为消息发送成功。另外若Partition只有leader，没有任何follower，若leader宕机嘞，则会导致数据丢失，所以ack=all则保证不了一个副本情况下的数据丢失，
+- ACK设置为All，PartitionLeader接收到消息且写入到磁盘，另外要求ISR（In-Sync-Replicas,也就是保持同步的副本，即与leader保持同步的folloers）
+列表里的followers都把消息同步过去，才认为消息发送成功。另外若Partition只有leader，没有任何follower，若leader宕机嘞，则会导致数据丢失，所以
+ack=all则保证不了一个副本情况下的数据丢失，

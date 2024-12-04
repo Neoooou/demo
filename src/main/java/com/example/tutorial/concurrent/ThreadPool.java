@@ -26,7 +26,7 @@ public class ThreadPool {
     // 固定线程数
     ExecutorService executor = Executors.newFixedThreadPool(10);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 10,
                 20,
@@ -36,23 +36,29 @@ public class ThreadPool {
                 new ThreadFactoryBuilder().setNameFormat("format_%d").build(),
                 new ThreadPoolExecutor.AbortPolicy()
         );
-        String s = "ABC";
-        Semaphore  a = new Semaphore(1), b = new Semaphore(0), c = new Semaphore(0);
-        for(int i =0 ; i < 10; ++i){
-            executor.execute(() -> roundPrint(a, b, "A"));
-            executor.execute(() -> roundPrint(b, c, "B"));
-            executor.execute(() -> roundPrint(c, a, "C"));
+        executor.execute(new RunnableTask());
+
+        Future<Object> future = executor.submit(new CallableTask());
+        System.out.println(future.get());
+
+        Thread.activeCount();
+        executor.shutdown();
+    }
+
+
+
+    static class RunnableTask implements Runnable{
+
+        @Override
+        public void run() {
 
         }
     }
 
-    private static void roundPrint(Semaphore cur, Semaphore next, String s){
-        try {
-            cur.acquire();
-            System.out.println(Thread.currentThread().getName() + " - " + s);
-            next.release();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    static class CallableTask implements Callable{
+        @Override
+        public Object call() throws Exception {
+            return 1;
         }
     }
 

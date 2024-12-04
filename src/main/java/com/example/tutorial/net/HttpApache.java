@@ -1,6 +1,5 @@
 package com.example.tutorial.net;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -15,7 +14,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.springframework.util.StopWatch;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -24,7 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HttpRequestDemo {
+/**
+ * Apache Http demo
+ */
+public class HttpApache {
     public static void main(String[] args) {
         callCtripOpenApi();
 

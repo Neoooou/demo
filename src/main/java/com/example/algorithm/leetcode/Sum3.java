@@ -23,6 +23,7 @@ public class Sum3 {
             int j = i + 1, k = n -1;
             for(;j < n; j++){
                 if(j > i+1 && nums[j] == nums[j-1]){
+                    // 第一个指针碰上重复的数值
                     continue;
                 }
                 while(j < k && nums[j]+nums[k]>target){
