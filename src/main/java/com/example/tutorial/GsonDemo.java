@@ -22,7 +22,7 @@ public class GsonDemo {
         employee.setName("Neo");
         employee.setRole("Dev");
         employee.setAge(20);
-        employee.setGender((byte)1);
+        employee.setGender((byte) 1);
         employee.setSalary(100.05);
         employee.setLeader(false);
         String jsonString = gson.toJson(employee);
@@ -43,15 +43,17 @@ public class GsonDemo {
         System.out.println("Date: " + calendar.getTime());
         System.out.println("inDayLightTime: " + zone.inDaylightTime(calendar.getTime()));
 
-        try{
+        try {
             String s = "ab";
-            for(int i = 0; i < 32; ++i){
+            for (int i = 0; i < 32; ++i) {
                 s = s + s;
                 System.out.println(i + " - " + s.length());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
     }
+
+
 }

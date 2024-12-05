@@ -1,4 +1,4 @@
-> ## x数据库设计范式（Noram Form）
+> ## x数据库设计范式（Norm Form）
 >
 
 - 1NF：表的每一元素都是不可再分的基本元素
@@ -312,7 +312,7 @@ buffer里的数据写到磁盘：
 ## 慢SQL
 
 ### SQL执行过程
-![Alt text](sql_execute_flow.png)
+![Alt text](img/sql_execute_flow.png)
 
 建立连接 -> 权限验证 -> SQL解析 -> SQL优化 -> SQL执行
 ```

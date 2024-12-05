@@ -1,4 +1,4 @@
-package com.example.algorithm.graph;
+package com.example.algorithm;
 
 /**
  * deep first search 深度优先遍历

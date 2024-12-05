@@ -1,4 +1,4 @@
-package com.example.algorithm.leetcode.backtrack;
+package com.example.algorithm.backtrack;
 
 import java.util.LinkedList;
 import java.util.List;
