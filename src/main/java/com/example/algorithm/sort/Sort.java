@@ -29,6 +29,9 @@ public interface Sort {
      *  time complexity: O(n*n)
      *  对局部有序的数组排列较快，减少比较和交换的次数
      *  稳定排序
+     *
+     *  jdk排序实现选择算法 插入 + 快排，大部分数组是局部有序的。
+     *
      */
     default void insertSort(int[] arr) {
         int j;
