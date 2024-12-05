@@ -1,4 +1,4 @@
-package com.example.algorithm.backtrack;
+package com.example.algorithm;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,12 +11,12 @@ import java.util.List;
  * @since 2023/8/28
  */
 
-public class GenerateParentheses {
+public class BackTrack {
     final static String LEFT_PARENTHESES = "(";
     final static String RIGHT_PARENTHESES = ")";
 
     public static void main(String[] args) {
-        System.out.println(new GenerateParentheses().generateParenthesis(3));
+        System.out.println(new BackTrack().generateParenthesis(3));
     }
 
     public List<String> generateParenthesis(int n) {

@@ -1,4 +1,4 @@
-package com.example.algorithm.str;
+package com.example.algorithm.leetcode;
 
 import java.util.Arrays;
 import java.util.Hashtable;
