@@ -1,6 +1,6 @@
 package com.example.app.advice.annotations;
 
-import com.example.app.beaninject.MyBeanDefinitionRegistrar;
+import com.example.app.beaninject.ABeanDefinitionRegistrar;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(MyBeanDefinitionRegistrar.class)
+@Import(ABeanDefinitionRegistrar.class)
 public @interface EnableCustomBean {
     String[] basePackages() default {};
 }

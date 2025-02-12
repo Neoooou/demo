@@ -1,20 +1,53 @@
 package com.example.tutorial.concurrent;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 import java.lang.ref.WeakReference;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
+ * 线程池：池化技术的使用，把可以复用的资源放入池子中，需要时直接复用，避免资源的频繁创建和销毁，提供资源的利用率
  * @author neo.zr
  * @since 2024/1/31
  */
 
-public class ThreadDemo {
+public class PoolDemo {
     static Object o = new Object();
 
     // fixed thread pool
-    static ExecutorService executorService = Executors.newFixedThreadPool(10);
+    static ExecutorService FIXED_POOL = Executors.newFixedThreadPool(1);
+
+    private static int CORE_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 2;
+
+    private static int MAX_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 4;
+
+    private static long KEEP_ALIVE_TIME = 600L;
+
+    private static int capacity = 4028;
+
+    private static ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("ExecutorUtil-%d").build();
+
+    private static final ThreadPoolExecutor CUST_POOL = new ThreadPoolExecutor(
+            CORE_POOL_SIZE // 核心线程数，闲置时保留的线程数量
+            ,MAX_POOL_SIZE // 最大线程数，
+            ,KEEP_ALIVE_TIME
+            ,TimeUnit.SECONDS
+            ,new LinkedBlockingDeque<>(capacity)
+            ,threadFactory
+            ,new ThreadPoolExecutor.AbortPolicy());
+
+
+    /**
+     * 传统线程执行
+     */
+    public static void execThread(){
+        new Thread(() -> System.out.println(Thread.currentThread().getName() + "exec.")).start();
+    }
+
+    public static void execWithPool(){
+        Runnable task = () -> System.out.println(Thread.currentThread().getName() + "exec.");
+        FIXED_POOL.submit(task);
+    }
 
 
     public static void main(String[] args) throws Exception {
@@ -22,8 +55,8 @@ public class ThreadDemo {
 
         Thread.yield(); // 让出CPU时间片，线程回到runnable状态
 
-        executorService.submit(new DemoRunnable());
-        executorService.submit(new DemoRunnable1());
+        FIXED_POOL.submit(new DemoRunnable());
+        FIXED_POOL.submit(new DemoRunnable1());
 
         extracted(1);
 
@@ -62,6 +95,21 @@ public class ThreadDemo {
                 userContext.close();
 
             }
+        }
+    }
+
+    static class RunnableTask implements Runnable{
+
+        @Override
+        public void run() {
+
+        }
+    }
+
+    static class CallableTask implements Callable{
+        @Override
+        public Object call() throws Exception {
+            return 1;
         }
     }
 

@@ -9,7 +9,7 @@ import org.springframework.core.type.AnnotationMetadata;
  * @Created on: 2021/11/22
  */
 
-public class MyImportSelector implements ImportSelector {
+public class AImportSelector implements ImportSelector {
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {

@@ -2,8 +2,8 @@ package com.example.tutorial.basics.collections;
 
 import com.example.entity.Traveler;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;

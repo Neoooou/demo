@@ -107,9 +107,11 @@ public class Honor {
     final static String SEPARATOR_COMMAND = "\\|";
 
     public static void main(String[] args) {
-        String s = "1 i first line|1 a second line|2 r replace a line";
-        simpleCommand(s);
+        int a = 0;
+        System.out.println(false || (a=1) == 0  && true);
+        System.out.println(a);
     }
+
     private static void simpleCommand(String inputLine) {
         String[] commands = inputLine.split(SEPARATOR_COMMAND);
         List<String> out = new ArrayList<String>();

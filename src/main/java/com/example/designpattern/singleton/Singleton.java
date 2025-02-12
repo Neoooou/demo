@@ -1,4 +1,4 @@
-package com.example.app.designpattern.singleton;
+package com.example.designpattern.singleton;
 
 /**
  * @Author: neo.zr

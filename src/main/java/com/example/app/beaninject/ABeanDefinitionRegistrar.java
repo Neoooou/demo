@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 @Configuration
-public class MyBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
+public class ABeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         //获取EnableCustoBean注释的属性

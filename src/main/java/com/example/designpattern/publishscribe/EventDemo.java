@@ -1,4 +1,4 @@
-package com.example.app.designpattern.publishscribe;
+package com.example.designpattern.publishscribe;
 
 import org.springframework.context.ApplicationEvent;
 

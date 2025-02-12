@@ -1,6 +1,6 @@
 package com.example.app;
 
-import com.example.app.beaninject.MyImportSelector;
+import com.example.app.beaninject.AImportSelector;
 import com.example.app.config.PropertiesDemo;
 import com.example.app.model.Employee;
 import com.example.app.beaninject.XFactoryBean;
@@ -15,10 +15,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest(classes = {DemoApplication.class})
+@SpringBootTest(classes = {Application.class})
 @RunWith(SpringRunner.class)
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-@Import({User.class, MyImportSelector.class})
+@Import({User.class, AImportSelector.class})
 class TestCase {
 
 	final PropertiesDemo myProperties;

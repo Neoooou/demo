@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class MyBeanPostProcessor implements BeanPostProcessor {
-    public MyBeanPostProcessor(){
+public class ABeanPostProcessor implements BeanPostProcessor {
+    public ABeanPostProcessor(){
         System.out.println("call MyBeanPostProcessor non-arg constructor");
     }
 

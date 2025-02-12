@@ -19,9 +19,6 @@ public class WeakRefTest {
     }
 
 
-
-
-
     /**
      * weak reference demo.
      */

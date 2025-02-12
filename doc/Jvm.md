@@ -170,7 +170,8 @@ Eden用于存放新生的对象，Survivor存放每次垃圾回收后存货的�
 
 缺点：
 - 标记-清除算法带来的垃圾碎片
-- concurrent mode failure，ygc清除回收时，将年轻代对象转入老年代，此时系统也在运行，老年代空间不足导致OOM。XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=60：是指设定CMS在对内存占用率达到60%的时候开始GC。
+- concurrent mode failure，ygc清除回收时，将年轻代对象转入老年代，此时系统也在运行，老年代空间不足导致OOM。
+XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=60：是指设定CMS在对内存占用率达到60%的时候开始GC。
 
 
 
@@ -318,7 +319,7 @@ todolist：元注解、Redis持久化、kbs较高下的架构/分布式高并发
 ## 引用
 
 - 强引用：New出来的对象, eg: Object o = new Object(), 被垃圾回收算法标记上则进行回收
-- 弱引用：GC的时候，不管内存空间足不足都会回收这个对象, Thread.Threadloca.ThreadlocalMap
+- 弱引用：GC的时候，不管内存空间足不足都会回收这个对象, Thread.Threadlocal.ThreadlocalMap
 - 软引用：内存不足的时候回收，一般用来实现内存敏感的缓存，比如图片缓存
 - 虚引用：提供了一种确保对象被`finalize`以后来做某些事情的机制
 

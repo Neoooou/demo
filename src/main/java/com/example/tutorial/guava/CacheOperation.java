@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheOperation {
 
     public static void main(String[] args) throws ExecutionException {
-        LoadingCache<String, String> cache = CacheBuilder.newBuilder()
+        LoadingCache<String, Object> cache = CacheBuilder.newBuilder()
                 // 并发数量
                 .concurrencyLevel(8)
                 // 初始容量

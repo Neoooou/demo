@@ -1,4 +1,4 @@
-package com.example.app.designpattern.decorator;
+package com.example.designpattern.decorator;
 
 public class ComputerScienceStudent extends AbstractDecorator{
     public ComputerScienceStudent(AbstractStudent abstractStudent){
