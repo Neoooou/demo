@@ -1,7 +1,5 @@
 package com.example.tutorial.basics.collections;
 
-import com.google.common.base.Functions;
-
 import java.util.*;
 
 public class SortedMapDemo {
@@ -12,9 +10,13 @@ public class SortedMapDemo {
         map.put(2, "c");
         map.put(4, "d");
 
+
         for (Integer key : map.keySet()) {
             System.out.println(key);
         }
+
+        Map.Entry<Integer, String> entry = map.ceilingEntry(3);
+        System.out.println(entry);
     }
 
     public int maxProduct(String[] words) {

@@ -6,15 +6,24 @@ package com.example.designpattern.singleton;
  */
 
 public class Singleton {
-    private static Singleton INSTANCE = null;
+    private static volatile Singleton INSTANCE = null;
 
     public static Singleton getInstance(){
         if(INSTANCE == null){
             synchronized (Singleton.class){
-                INSTANCE = new Singleton();
+                if(INSTANCE == null){
+                    INSTANCE = new Singleton();
+                }
             }
         }
 
         return INSTANCE;
+    }
+
+    public static void main(String[] args) {
+        Singleton singletonEnum = getInstance();
+        for(int i=0;i<10;++i){
+            System.out.println(singletonEnum == getInstance());
+        }
     }
 }
