@@ -163,9 +163,32 @@ websocket，使用长连接，双全工的通信机制，第一次TCP链路建�
 
 ## HTTP
 
-### GET VS POST
-
+###  请求方法
+GET、POST、PUT、DELETE...
+GET VS POST
 - GET请求一般是去获取数据，POST请求一般作为发送数据到后台时使用
 - GET请求通过在url中进行传参，安全性和隐私性都比较差，而且长度也有限制；POST请求将数据放在request body中，安全性高，且容量大
 - GET请求可被缓存，POST请求不会被缓存
 - GET请求只产生一个TCP包，而POST请求会产生两个，在网络状况良好的情况下，发一次包与两次的时间差可忽略，但是两次TCP包在数据校验上的优点是比较显著的。
+
+### Status code
+2xx: 请求成功
+200: 请求完成
+201: 请求完成，资源已创建
+
+3xx: 重定向
+301: 用永久性重定向
+302：临时重定向
+
+4xx: 客户端错误
+400：bad request，请求参数问题
+401：unauthorized， 缺少鉴权信息
+403：forbidden， 权限不足，禁止访问
+404：not found，资源未找到
+405：method not allowed. http请求方法不被允许
+
+5xx、6xx:服务端错误
+500：Internal Serve Error，服务器内部错误
+501：Not Implemented, 服务未实现
+502：bad geteway，网关服务执行请求时，收到无效响应
+503：Service unavailable, 服务暂时不可用 
