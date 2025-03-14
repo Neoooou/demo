@@ -15,9 +15,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ABeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
+
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition("beanModel");
+
+        /**
+         * 修改Bean属性, dependsOn、Scope等Spring属性
+         */
         beanDefinition.getPropertyValues().addPropertyValue("age", "21");
     }
 }

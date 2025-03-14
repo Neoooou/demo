@@ -2,6 +2,7 @@ package com.example.app.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author: neo.zr
@@ -10,6 +11,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain=true)
+@Service
 public class Employee {
     String name;
     String role;

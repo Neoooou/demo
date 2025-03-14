@@ -13,6 +13,6 @@ public class AImportSelector implements ImportSelector {
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        return new String[]{Employee.class.getName()};
+        return new String[]{Employee.class.getName(), };
     }
 }
