@@ -5,7 +5,7 @@ package com.example.app.service;
  * @Created on: 2021/6/23
  */
 
-public interface IHelloWorld {
+public interface IHello {
 
     String sayHello();
 }

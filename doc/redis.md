@@ -86,7 +86,7 @@ Redis同时使用了惰性过期和定期过期两种过期策略。但是Redis�
 2. **LFU** 挑选最少使用的数据淘汰
 3. **TTL** 挑选将要过期的数据淘汰
 4. **RANDOM** 挑选任意的数据淘汰
-5. **NO-ENVICTION** 不淘汰数据，新写入操作会报错
+5. **NO-ENVICTION** 不淘汰数据，新写入操作会报错, 默认策略
 
 [volatile-lru|allkeys-lru|volatile-random|allkeys-random|volatile-ttl|volatile-lfu|allkeys-lfu|noeviction]
 

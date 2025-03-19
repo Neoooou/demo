@@ -1,4 +1,4 @@
-package com.example.app.advice.annotations;
+package com.example.app.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,12 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @Author: Zhang Ran
- * @Date: Created on 2020/10/21
+ * @Author: ranz
+ * @Since: 2025/3/13
  */
-
+@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.TYPE})
-public @interface OutPower {
-    String value() default "";
+public @interface ServiceLog {
 }

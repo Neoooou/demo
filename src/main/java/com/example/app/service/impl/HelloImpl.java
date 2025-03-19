@@ -1,7 +1,7 @@
 package com.example.app.service.impl;
 
-import com.example.app.advice.annotations.OutPower;
-import com.example.app.service.IHelloWorld;
+import com.example.app.annotation.ServiceLog;
+import com.example.app.service.IHello;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
  * @Date: Created on 2020/10/9
  */
 @Service
-public class HelloWorldImpl implements IHelloWorld {
+public class HelloImpl implements IHello {
 
     @Value("${greetings}")
-    public static String greetings;
+    public String greetings;
 
-    @OutPower
+    @ServiceLog
     @Override
     public String sayHello() {
         return greetings;

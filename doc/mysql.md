@@ -295,6 +295,7 @@ commit后的日志，在宕机后能帮助数据库恢复数据
 sync_binlog: 
 事务提交之后，将binlog从缓冲区写入磁盘， 0 - 不进行操作，等待缓冲区的自动处理， 1 - 事务提交之后，立即同步磁盘，最安全 N - 执行N次事务之后，同步磁盘可提升slave性能
 
+
 innodb_flush_log_at_trx_commit:
 控制redo log buffer， redo log：crash recovery
 0: InnoDB会每秒钟将log buffer中的数据更新到磁盘中fsync

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableAspectJAutoProxy
-public class ConfigDemo {
+public class AppConfig {
 
     @Bean(name = "fooService")
     public FooService fooService1(){
