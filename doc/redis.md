@@ -30,14 +30,17 @@ char buf[];
 ZipList
 压缩列表，更加紧凑、占用空间更小的列表数据形式
 
+## Hash
 
 ## Set
 
-
-
-## Hash
-
 ## Sorted Set (zset)
+zrange
+zadd
+zscore
+zrank
+
+数据结构：dict + skipList
 跳跃表，多层链表，原理简单，容易实现。每次插入有50%的概率增加一层，
 插入、删除、查找都是O(log(n))的时间复杂度
 

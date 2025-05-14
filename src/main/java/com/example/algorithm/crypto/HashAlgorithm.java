@@ -1,14 +1,15 @@
 package com.example.algorithm.crypto;
 
+import com.trip.tourop.api.TouropResponse;
+import com.trip.tourop.model.SyncPriceModel;
+import com.trip.tourop.util.TouropUtils;
 import org.apache.commons.codec.binary.Base64;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -18,47 +19,108 @@ import java.util.Arrays;
 
 public class HashAlgorithm {
 
+    final static String base64PrivateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCwtjx0rsabXQNc" +
+            "ZlbOV/SN+iKwXicAZ798hBzVKWZu25ZhQ0Mjhxh3C+08+1SznGQ+Z5/q6Kuv577p" +
+            "Rc6CIKzxqiyYJN87eZiIWsCp0zoPfV1TbLQoIc6khsTK2u24LxUcKit3R+wGEHN0" +
+            "NNKYIOrGDvGvgG2Mt6buCJdw3azTkt11ybQPBhnju7oHIgUdX+pXkhRUbNO0quhO" +
+            "z0Ykdw9kwlIh7fYI7Coc4vgaAmzL7LbbNF36TJ9CZmD79zpAhJRiHIOQv/FDQtCJ" +
+            "514v4cuKMzxzbIfF6eqcu0FA4vTxxrPNr+5thQcGIWErt5snuUIpr4Z1iSegTMZ+" +
+            "WojHxf19AgMBAAECggEBAJhUH30+BDp9TZ5jIcUyEMAqtahvIRO6W1jM0cX2sDQz" +
+            "2kfxoXiIxlAo2dLNnNBPqiIZVcM72nQCQ5H2+PM3k52m4lYswroUMaapBJfgW5Zq" +
+            "rP5zIEHQEr/E5PMxEebJv1rOBzYFq7H2kG/F8RvulDMzQqfU/5pj3eQnR9SlYovm" +
+            "CYSU2qCgCxzjtn9WdAoIUL4goIdylHmJ72seS1HSlzuUmzLU+It7XABgreoBy0jf" +
+            "jplAL3RLegSHj33XQNdSRZBu3sXVrZj1t0ZnHLiyVLfW8hKIlP/CTLgs5ONOQXE9" +
+            "5KlRLeq2Nn1pb0/Cqq3Zg0JIHnSDAzFx4qgIa5xs+8ECgYEA11Xzm2KiygP7zaRi" +
+            "OXIJiaW/zNtpJx3ID3/DtbAUrJZHjUeKLeqVojFFiUO1fu0REm5Zd7djVbULnPTO" +
+            "VwIlhll4RDUYh1aJgijCdRXUWvATF0vE8gvN5RoXf2bjG6GPdAQlklsD/D8i6NiD" +
+            "mdO3LGkS3hJbqUOEPB5P/+Sv++kCgYEA0hUTs1fmhFXBDMo5pjN18Lhpuftzp+Tv" +
+            "HR7F3AVIU0fxAAlTaGmBl1ZrE/8YDzNt4j+sRIEfug8g1eTH3bsUudO6+MguJULe" +
+            "stwCHzxCnVX3BvEHjdvc577dTUiUcOI7Omz0WpYiF/cujfY6E0nbWFapCMu4hRy7" +
+            "G9zHNT3bfHUCgYAjPGlUb9t7exNlHxUDmWl+IKU1/GFEiVcHUjzQKjP32c9zitVN" +
+            "lilOFQnv4Ch+0IQOpAf30wZqK+nukRCCpFNHnLRVVOrimoJ9zfWj+yJ4jvhQw5FC" +
+            "mjPi3VYi/s8C4nj63wLW5BXO3PX1bBh8v2wl1DvGIvLky6uDuuIUWXOCoQKBgQC4" +
+            "ZxPR2phXFMbNqTyNLKKb1+PGAnf0qblRwE9A38oqf/2FYKo7/lBoPMzk0oeV4DjV" +
+            "3boir4zfzqOt3JGriamZq8Z01ZHb1ySPrxqVvFlkra6WAz/0P0dajGjIi6rwo0QF" +
+            "9tlOInZuvuO4bKdxguTsV7UsKVYgUaXTwSmDDHb6eQKBgCyAugpXPfcKxVMCrD2t" +
+            "jDXKxeIga3Zb6jPCO85Bh7q0/tKIMu7caBLPlioMnjEcHpNY2boFCSSnsjwIvl7P" +
+            "6mzwyhEKf/JpaFBlVbYnay8Qu5bAt9grrdxMRkRSG5NQb/hSPysoBUaNlCY35fKh" +
+            "/e36oql26Ms9FzHUD+nTdAeg" ;
+
+    final static String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3Jwb3JhdGVDb2RlIjoiQ09SUC0wMDAwMDAwMDQiLCJjb3Jwb3JhdGVJRCI6NCwiY29ycG9yYXRlTG9nbyI6Imh0dHBzOi8vc2FuZGJveC5ta3Btb2JpbGUuY29tL3VwbG9hZHMvYjJiaW52bWFzdGVyL1hWbEJ6Z2IyNTAyMDUxMzM5NDYuanBlZyIsImNvcnBvcmF0ZU5hbWUiOiJUUklQLkNPTSIsImNvcnBvcmF0ZVBhcmVudENvZGUiOiJDT1JQLTAwMDAwMDAwMSIsImV4cCI6MTc0NjYwMTMxNiwiaGllcmFyY2h5IjoiVE1IQy0wMDAwMDAwMDEtMDAwMDAwMDA0IiwiaWF0IjoxNzQ2NTk3NzE2LCJtZXJjaGFudEtleSI6IkNPUlAtMDAwMDAwMDA0I1RNSEMtMDAwMDAwMDAxLTAwMDAwMDAwNCIsIm91dGxldENvZGUiOiIiLCJyb2xlTmFtZSI6IlNFR01FTlRBVElPTiBUUklQIiwic2VnbWVudENvZGUiOiJUTVNDLTAwMDAwMDAwOSIsInVzZXJFbWFpbCI6IkppbW15LmFtYW5AdHJpcC5jb20iLCJ1c2VyRmlyc3ROYW1lIjoiSmltbXkiLCJ1c2VySUQiOjE1LCJ1c2VyTGFzdE5hbWUiOiJUUklQIiwidXNlclBob25lIjoiKzYyODEyMzQ1Njc4OSJ9.X1vBd36SPgMlyzZ4Q0_w-VHdCS4TcO6dtuKs_yxXMpQ";
+
+    private static String str2Hex(String str){
+        StringBuilder hexString = new StringBuilder();
+        for (char ch : str.toCharArray()) {
+            // Convert each character to its hexadecimal representation
+            String hex = Integer.toHexString((int) ch);
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
+    public static String byteToArray(byte[] data) {
+        StringBuffer resultBuffer = new StringBuffer("");
+        for (int i = 0; i < data.length; i++) {
+            String substring = Integer.toHexString((data[i] & 0xFF) | 0x100).toUpperCase().substring(1, 3);
+            resultBuffer.append(substring);
+        }
+        return resultBuffer.toString();
+    }
+
+
+    private static String encryptByPrivateKey(String base64PrivateKey, String content) throws Exception {
+        // private Key
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(base64PrivateKey));
+
+
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+
+        Signature signature = Signature.getInstance("SHA256WithRSA");
+        signature.initSign(privateKey);
+        signature.update(content.getBytes("UTF-8"));
+        byte[] bytes = signature.sign();
+        return Base64.encodeBase64String(bytes);
+    }
+
     public static void main(String[] args) throws Exception {
-        String body = "{\"stringValue\":\"TEST\",\"intValue\":1,\"boolValue\":true}";
+//        System.out.println(Instant.now().atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX")));
+        String timestamp = "2025-05-06T19:00:00Z";
+        signBk("{\"partnerRefNo\":\"TRIPTEST1081\",\"bookerFirstName\":\"John\",\"bookerLastName\":\"Lee\",\"bookerEmail\":\"john.doe@example.com\",\"bookerNationality\":\"USA\",\"productCode\":\"200070\",\"bookingDate\":\"2025-05-13\",\"bookingList\":[{\"productOptionCode\":\"RTKLK001\",\"visitorFirstName\":\"Alex\",\"visitorIdType\":\"PASSPORT\",\"visitorIdNumber\":\"1234567890098765\",\"visitorNationality\":\"UK\",\"visitorEmail\":\"alex.smith@example.com\"},{\"productOptionCode\":\"RTKLK001\",\"visitorFirstName\":\"Alex\",\"visitorIdType\":\"PASSPORT\",\"visitorIdNumber\":\"1234567890098765\",\"visitorNationality\":\"UK\",\"visitorEmail\":\"alex.smith@example.com\"},{\"productOptionCode\":\"RTKLK002\",\"visitorFirstName\":\"Alex\",\"visitorIdType\":\"PASSPORT\",\"visitorIdNumber\":\"1234567890098765\",\"visitorNationality\":\"UK\",\"visitorEmail\":\"alex.smith@example.com\"}]}", timestamp);
+
+        signPay("{\"docNo\":\"TMTRX-20250507-yjnD7n\",\"accountNumber\":\"0010733607\"}", timestamp);
+
+       System.out.println(Math.random() * 0xFFFF);
+       System.out.println(0xFFFF);
+    }
+
+    private static void signPay(String body, String timestamp) throws Exception {
         body = body.replaceAll("\\s+", "");
+        System.out.println(body);
         StringBuilder dataBuilder = new StringBuilder("POST:");
-        dataBuilder.append("/v1.0/private/partner/ping");
+        dataBuilder.append("/v1.0/private/partner/transaction/booking/payment");
         dataBuilder.append(":");
-        dataBuilder.append("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb3Jwb3JhdGVDb2RlIjoiQ09SUC0wMDAwMDAwMDQiLCJjb3Jwb3JhdGVJRCI6NCwiY29ycG9yYXRlTmFtZSI6IlRSSVAuQ09NIiwiY29ycG9yYXRlUGFyZW50Q29kZSI6IiIsImV4cCI6MTc0MTc2MDYwNSwiaGllcmFyY2h5IjoiVE1IQy0wMDAwMDAwMDQiLCJpYXQiOjE3NDE3NTcwMDUsIm1lcmNoYW50S2V5IjoiQ09SUC0wMDAwMDAwMDQjVE1IQy0wMDAwMDAwMDQiLCJvdXRsZXRDb2RlIjoiIiwicm9sZU5hbWUiOiJDb3Jwb3JhdGVBZG1pbiIsInNlZ21lbnRDb2RlIjoiVE1TQy0wMDAyIiwidXNlckVtYWlsIjoiSmltbXkuYW1hbkB0cmlwLmNvbSIsInVzZXJGaXJzdE5hbWUiOiJKb2huIiwidXNlcklEIjo0LCJ1c2VyTGFzdE5hbWUiOiJEb2UiLCJ1c2VyUGhvbmUiOiIwOTgyMjc2NjM3NzIifQ.1IN4QxaSAld5lrlKUaDzfjPWDL_7M0F0etTJFZV5Aug");
+        dataBuilder.append(accessToken);
         dataBuilder.append(":");
-        dataBuilder.append("2025-03-11T11:00:00Z");
+        dataBuilder.append(timestamp);
         dataBuilder.append(":");
         dataBuilder.append(str2Hex(body));
-
-        String base64PrivateKey =
-                "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDJNRD9AmZUGq1i" +
-                "JHpIUF2V77JzB1OVB7Hda4HOyUFh8Jlhe6nfgy7WqNNWOIxtt9zPpJ/FVj8U+W9j" +
-                "Js51Jr+WiSzb1nvhxCzrlvShLGWqYuEVd+djPm9/eGuiNUZ2A49jjpXFOZcsBOC6" +
-                "NEAaWmYhh6I/iytaaZIZNPV4LTGiBcGdDYz/CmKO/orUbykLqiwe1d7wMWCFqkrW" +
-                "ld1V+wATfgzAgCSUCg+zoz7XvOlH/yEv7/z02Z8AHI8uVhA6b33jWqKfdZ+glohx" +
-                "HnQ9SG7e0FVhtESaeRtGunLIHYlrW90gYkOJLZafkO6BWRHxlfAAjF/suQMYpTB9" +
-                "VMbGsKQhAgMBAAECggEAXcb26QVCTja00sYvnB6gz64NHOGwSghxFMLzmD5i09QA" +
-                "mNe7P+pzXScIgOoQQV7tcnXG5YGiGxN6n9rJZP6vUukSWE/qIzp8uTz9PVVk+Pnm" +
-                "8EuXM8E41E960vpDoeNc5Ejjcy25UJHhb8fEjMPPUBdYPoeNqDEGH+t38RAXTuzN" +
-                "Z28P5BiE4esf9Iis3H+cjqQ+QmlpTikTqkj34iYT0sul+ivWL/8n7MymAs4iIjFI" +
-                "ZlL4mJbezY5BuseD3LVl/Rq85R2c3xM9ZSVRAAI/vyzRax2klfqB22tUEZek7pTH" +
-                "JilEIetXIXBM8xmgQPQsxqnlOQsUpkJbr0Ta7Dj5MQKBgQD5S72fiIGLKgyS6n1z" +
-                "7CUdkpnBsDU6qTjzIfy7edjoz2h9Po0wZGqsPHexAh14NxvRIw6E9Rm4juMfO0oI" +
-                "upUEPO9bihC/+uIHPE2Sh3q6PWxqrXkHEIwO7G1zgSdRWVfkB/aL3JD3Pb8GfunS" +
-                "enfnK+xosMZJI+SOmD41cW3JvQKBgQDOnkNrmM9I1j+4gWbWj+oXGk3bmpZP0gNz" +
-                "jYDmsmdz8emFGY5PlUPzntMX5ojdEfcyLval/VtqiGoP2gcFOe2LcFriYLXkwynk" +
-                "/x7sz/eYpHhE/Ey+GWrohA/nRkKbr5t64qCmX8lxtQPptR9oJGagEYZHWXJucrYs" +
-                "XJ1TT/tgNQKBgBK3FO09GjyQU5FT+UcSm1a1AsX/rH9S5OubyZVpeFdB+t4sK/1O" +
-                "DJQRlgq71eqIeJYiw5xHqj6ou3RExzIQj89Zo76Dhu5ir0VLyacOdLA2nEUF8OgO" +
-                "3fTg2vao44K/6lE8J84oKNnm0Mh0Dqm2d/nq2jyhyMEE6Mursj/g3BUhAoGAb+YM" +
-                "c2hF0ped2OnT7R3x1GM9iVJWV5JQpjMbfVVfa862/ouRpA4dyAHbJxWGR9vj+Xyv" +
-                "vcPRz4djkYQtyynNOXg28GUZ/XOo68kzUWNsH3HrZMkTMt0HJjfneQR3LGPVm57D" +
-                "DHfR3FABd3/NK5STM9tp0phhvelIOgxKdAVcCYUCgYAd9S41ZoVuBWMHmCpBbVQa" +
-                "vkWZwpaXRbe9/0oiLG7aHstcZglY2MEyyy/F7WmlkrOpHoG+g0Ovs6m+3CwXqVjH" +
-                "l9bwr4yNImRw41a1BOAmJBZ8S1ifNlJ6jTKoRavS0dF8H/Mus224sS90tO7LhW7t" +
-                "SchtLj9FGR9YOapgHWlttA==" ;
-
         System.out.println(encryptByPrivateKey(base64PrivateKey, dataBuilder.toString()));
+    }
+
+    private static void signBk(String body, String timestamp) throws Exception {
+        body = body.replaceAll("\\s+", "");
+        System.out.println(body);
+        StringBuilder dataBuilder = new StringBuilder("POST:");
+        dataBuilder.append("/v1.0/private/partner/tourism/booking/inquiry");
+        dataBuilder.append(":");
+        dataBuilder.append(accessToken);
+        dataBuilder.append(":");
+        dataBuilder.append(timestamp);
+        dataBuilder.append(":");
+        dataBuilder.append(str2Hex(body));
+        System.out.println(encryptByPrivateKey(base64PrivateKey, dataBuilder.toString()));
+
     }
     /**
      * message digest algorithm
@@ -133,21 +195,7 @@ public class HashAlgorithm {
 
 
 
-    // 辅助方法：从Base64编码的字符串中获取PublicKey对象
-    private static String encryptByPrivateKey(String base64PrivateKey, String content) throws Exception {
-        // private Key
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(base64PrivateKey));
 
-
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
-
-        Signature signature = Signature.getInstance("SHA256WithRSA");
-        signature.initSign(privateKey);
-        signature.update(content.getBytes("UTF-8"));
-        byte[] bytes = signature.sign();
-        return Base64.encodeBase64String(bytes);
-    }
 
     public static String SHA(String str) {
         if (str == null) {
@@ -173,15 +221,7 @@ public class HashAlgorithm {
         return md5StrBuff.toString();
     }
 
-    private static String str2Hex(String str){
-        StringBuilder hexString = new StringBuilder();
-        for (char ch : str.toCharArray()) {
-            // Convert each character to its hexadecimal representation
-            String hex = Integer.toHexString((int) ch);
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    }
+
     public static String hmac(String text){
         return null;
     }

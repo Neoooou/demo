@@ -1,6 +1,6 @@
 package com.example.algorithm.crypto;
 
-import com.lazada.lazop.util.Constants;
+
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -31,10 +31,10 @@ public class AES {
 
     protected void init(String key, String vector) {
         try {
-            byte[] raw = key.getBytes(Constants.CHARSET_UTF8);
+            byte[] raw = key.getBytes("UTF-8");
             this.skeySpec = new SecretKeySpec(raw, CIPHER_ALGORITHM);
             this.cipher = Cipher.getInstance(CIPHER_TRANSFORMATION);
-            this.iv = new IvParameterSpec(vector.getBytes(Constants.CHARSET_UTF8));
+            this.iv = new IvParameterSpec(vector.getBytes("UTF-8"));
         } catch (Exception e) {
             throw new RuntimeException(String.format("AES initialize failure, secretKey=%s, vector=%s, errorMessage=%s", key, vector, e.getMessage()), e);
         }
@@ -49,7 +49,7 @@ public class AES {
     public String encrypt(String plainText) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-            byte[] bytes = this.cipher.doFinal(plainText.getBytes(Constants.CHARSET_UTF8));
+            byte[] bytes = this.cipher.doFinal(plainText.getBytes("UTF-8"));
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < bytes.length; i++) {
                 result.append((char) (((bytes[i] >> 4) & 0xF) + ((int) 'a')));
@@ -77,7 +77,7 @@ public class AES {
                 bytes[i / 2] += (c - 'a');
             }
 
-            return new String(cipher.doFinal(bytes), Constants.CHARSET_UTF8);
+            return new String(cipher.doFinal(bytes), "UTF-8");
         } catch (Exception e) {
             throw new RuntimeException(String.format("AES decryption failure, cipherText=%s. errorMessage=%s", cipherText, e.getMessage()), e);
         }

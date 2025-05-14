@@ -24,6 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * selenium chrome,
@@ -38,18 +39,10 @@ public class SeleniumDemo {
     static String proxyAddress = "ntproxy.qa.nt.ctripcorp.com";
     static int proxyPort = 8080;
 
-    public static void main(String[] args) {
-//        estimate();
+    public static void main(String[] args) throws InterruptedException {
         scrape();
     }
 
-    static void estimate() {
-        double singleRequestSize = 0.5;
-        int productCount = 20_000, productRequestCount = 30;
-
-        System.out.println(singleRequestSize * productRequestCount * productCount);
-
-    }
 
 
     static HttpClient buildHttpClient() {
@@ -66,7 +59,7 @@ public class SeleniumDemo {
         return client;
     }
 
-    static void scrape() {
+    static void scrape() throws InterruptedException {
         // 指定ChromeDriver地址
         System.setProperty("webdriver.chrome.driver", "D:\\Users\\ranz\\selenium_drivers\\" + CHROME_DRIVER_FILENAME);
         System.setProperty("webdriver.http.factory", "jdk-http-client");
@@ -96,14 +89,14 @@ public class SeleniumDemo {
         options.setBinary("D:\\Users\\ranz\\Downloads\\chrome-win32\\chrome.exe");
 
         /**
+         *
          * "proxy": {
          *             "server": "https://brd.superproxy.io:22225",
          *             "username": "brd-customer-hl_bc0fff1c-zone-tickets_residential-country-es",
          *             "password": "mkt3oc2uvvdd"
          *         }
          *
-         //         */
-        // 设置代理
+         **/
         Proxy proxy = new Proxy()
                 .setHttpProxy("")
                 .setSslProxy("https://brd.superproxy.io:22225")
@@ -111,7 +104,7 @@ public class SeleniumDemo {
                 .setSocksPassword("");
 
         // 79.116.131.252  84.124.166.95
-//        options.setProxy(proxy);
+        options.setProxy(proxy);
 
         ChromeDriver chromeDriver = new ChromeDriver(options);
 
@@ -133,7 +126,7 @@ public class SeleniumDemo {
 
         String baiduUrl = "https://www.baidu.com";
 
-        String musementUrl = "https://www.musement.com/us/atlanta/general-admission-tickets-to-georgia-aquarium-178909/";
+        String musementUrl = "https://www.musement.com/us/";
 
         String priceClassName = "priceWrapper__sw_O";
 
@@ -144,9 +137,16 @@ public class SeleniumDemo {
         WebDriverWait driverWait = new WebDriverWait(chromeDriver, Duration.ofSeconds(30));
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("p")));
 
+        WebElement webElement = chromeDriver.findElement(By.className("msm_input_aS+E-"));
 
-        WebElement webElement = chromeDriver.findElement(By.tagName("body"));
-        System.out.println(webElement.getText());
+        webElement.sendKeys("Sightseeing cruise tickets with live guide");
+
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        WebElement ele  = chromeDriver.findElement(By.className("item_title_rcv4P"));
+        ele.click();
+
+
     }
 
 }
