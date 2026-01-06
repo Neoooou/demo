@@ -1,11 +1,12 @@
-package com.example.tutorial;
+package com.example.tutorial.basics;
 
 import java.lang.reflect.Field;
 import java.time.DayOfWeek;
 
-public class SyntheticDemo {
+public class AReflect {
 
-    public static void main(String[] args) {
+
+    public static void checkSynthetic(){
         Field[] fields = DayOfWeek.class.getDeclaredFields();
 
         for (int i = 0; i < fields.length; i++) {

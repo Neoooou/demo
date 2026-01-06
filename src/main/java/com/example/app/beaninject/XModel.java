@@ -1,8 +1,14 @@
 package com.example.app.beaninject;
 
+import com.google.common.base.Stopwatch;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -43,5 +49,17 @@ public class XModel implements InitializingBean, DisposableBean, BeanNameAware, 
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("【InitializingBean接口】调用InitializingBean接口的afterPropertiesSet方法");
+    }
+    public static void main(String[] args) {
+        String[]  strs = new String[]{"4.01", "4.02", "4.08", "4.1", "4.099999999999999999999999999"};
+        for(int m =0; m < strs.length; ++m){
+            BigDecimal base = new BigDecimal(10);
+            BigDecimal amountResult = new BigDecimal(strs[m]);
+            for(int i = 0; i < 2; ++i){
+                amountResult =  amountResult.multiply(base);
+            }
+            System.out.println(amountResult.longValue());
+        }
+
     }
 }

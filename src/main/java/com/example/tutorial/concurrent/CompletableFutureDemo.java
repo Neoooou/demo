@@ -40,6 +40,7 @@ public class CompletableFutureDemo {
             return "Success";
         })
         ).collect(toList());
+
         List<String> results = futrueStrs.stream().map(CompletableFuture::join).collect(toList());
 
         System.out.println(results);

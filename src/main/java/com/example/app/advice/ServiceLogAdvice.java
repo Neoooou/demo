@@ -144,4 +144,8 @@ public class ServiceLogAdvice {
         }
     }
 
+    public static void main(String[] args) {
+        System.out.println(String.format("%s - %s", null, null));
+    }
+
 }

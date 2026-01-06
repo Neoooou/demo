@@ -1,4 +1,4 @@
-package com.example.tutorial.net;
+package com.example.tutorial.net.websocket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class MyServer {
         ServerSocket serverSocket = null;
         Executor executor = Executors.newFixedThreadPool(10);
         try{
-            serverSocket = new ServerSocket(Constant.port);
+            serverSocket = new ServerSocket(8080);
             while(true){
                 Socket accept = serverSocket.accept();
                 executor.execute(new MyRun(accept));

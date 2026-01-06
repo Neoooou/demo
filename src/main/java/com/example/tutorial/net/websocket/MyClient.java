@@ -1,4 +1,4 @@
-package com.example.tutorial.net;
+package com.example.tutorial.net.websocket;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -16,7 +16,7 @@ public class MyClient {
         String msg = null;
         final String exit = "exit";
         try {
-            Socket client = new Socket(InetAddress.getLocalHost(), Constant.port);
+            Socket client = new Socket(InetAddress.getLocalHost(), 8080);
             client.setKeepAlive(true);
             pw = new PrintWriter(client.getOutputStream());
             br = new BufferedReader(new InputStreamReader(System.in));
