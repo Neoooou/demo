@@ -1,0 +1,145 @@
+spring:
+  application:
+    name: mem0-analytics-system
+  
+  # Redis Configuration
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-active: 50
+        max-idle: 20
+        min-idle: 5
+        max-wait: 3000ms
+      shutdown-timeout: 5000ms
+  
+  # PostgreSQL Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mem0_analytics
+    username: mem0_user
+    password: mem0_pass
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+# Mem0 System Configuration
+mem0:
+  # Core settings
+  system:
+    name: "Mem0 Large Scale Analytics"
+    version: "1.0.0"
+    max-memory-gb: 100
+  
+  # Embedding service
+  embedding:
+    provider: "openai"
+    model: "text-embedding-3-small"
+    dimension: 1536
+    api-key: ${OPENAI_API_KEY:your-api-key}
+    batch-size: 100
+    timeout-seconds: 30
+  
+  # Storage configuration
+  storage:
+    # Sharding for GB-scale data
+    sharding:
+      enabled: true
+      shard-size-mb: 512
+      num-shards: 200
+      replication-factor: 2
+    
+    # Compression
+    compression:
+      enabled: true
+      algorithm: "zstd"  # zstd, lz4, gzip
+      level: 3
+    
+    # Cache settings
+    cache:
+      enabled: true
+      max-size-mb: 1024
+      ttl-seconds: 3600
+  
+  # Vector indexing
+  indexing:
+    backend: "lucene"
+    lucene:
+      index-path: "./data/indexes"
+      ram-buffer-size-mb: 256
+      max-buffered-docs: 10000
+      merge-factor: 10
+    
+    persistence:
+      enabled: true
+      save-interval-seconds: 300
+  
+  # Analytics engine
+  analytics:
+    batch-size: 10000
+    max-workers: 8
+    cache-size-mb: 1024
+    
+    aggregation:
+      time-windows: ["1h", "1d", "7d", "30d"]
+      metrics: ["count", "sum", "avg", "min", "max", "p50", "p95", "p99"]
+    
+    correlation:
+      min-support: 0.01
+      min-confidence: 0.5
+      max-itemset-size: 5
+
+# Server configuration
+server:
+  port: 8080
+  compression:
+    enabled: true
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+
+# Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    health:
+      show-details: always
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.example.mem0: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ./logs/mem0-system.log
+    max-size: 100MB
+    max-history: 30

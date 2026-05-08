@@ -1,0 +1,110 @@
+# Mem0 Memory Management System Configuration
+
+system:
+  name: "Mem0 Large Scale Analytics"
+  version: "1.0.0"
+  max_memory_gb: 100
+  
+# Mem0 Core Configuration
+mem0:
+  provider: "openai"  # or "ollama", "anthropic"
+  model: "gpt-4"
+  embedding_model: "text-embedding-3-small"
+  embedding_dim: 1536
+  
+# Storage Configuration
+storage:
+  backend: "hybrid"  # redis + postgresql
+  
+  redis:
+    host: "localhost"
+    port: 6379
+    db: 0
+    max_connections: 50
+    socket_timeout: 5
+    
+  postgresql:
+    host: "localhost"
+    port: 5432
+    database: "mem0_analytics"
+    user: "mem0_user"
+    password: "mem0_pass"
+    pool_size: 20
+    max_overflow: 10
+    
+  # Sharding configuration for GB-scale data
+  sharding:
+    enabled: true
+    shard_size_mb: 512  # Each shard max 512MB
+    num_shards: 200     # Support up to 100GB
+    replication_factor: 2
+    
+  # Compression
+  compression:
+    enabled: true
+    algorithm: "zstd"  # zstd, lz4, gzip
+    level: 3
+    
+# Vector Indexing Configuration
+indexing:
+  backend: "faiss"  # faiss or annoy
+  
+  faiss:
+    index_type: "IVF"  # IVF, HNSW, Flat
+    nlist: 1024        # Number of clusters
+    nprobe: 64         # Number of clusters to search
+    metric: "L2"       # L2 or IP (inner product)
+    use_gpu: false
+    
+  annoy:
+    n_trees: 100
+    metric: "angular"
+    
+  # Index persistence
+  persistence:
+    enabled: true
+    save_interval_seconds: 300
+    index_path: "./data/indexes"
+    
+# Analytics Configuration
+analytics:
+  batch_size: 10000
+  max_workers: 8
+  cache_size_mb: 1024
+  
+  aggregation:
+    time_windows: ["1h", "1d", "7d", "30d"]
+    metrics: ["count", "sum", "avg", "min", "max", "p50", "p95", "p99"]
+    
+  correlation:
+    min_support: 0.01
+    min_confidence: 0.5
+    max_itemset_size: 5
+    
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+  
+  rate_limit:
+    enabled: true
+    requests_per_minute: 1000
+    
+  cors:
+    enabled: true
+    origins: ["*"]
+    
+# Monitoring Configuration
+monitoring:
+  prometheus:
+    enabled: true
+    port: 9090
+    
+  logging:
+    level: "INFO"
+    format: "json"
+    file: "./logs/mem0_system.log"
+    rotation: "1 day"
+    retention: "30 days"
